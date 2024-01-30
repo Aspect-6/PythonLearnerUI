@@ -1,6 +1,6 @@
 {
     "watch": ["."],
     "ext": "py",
-    "exec": "/Users/npatel00/Developer/PycharmProjects/PythonLearnerUI/.venv/bin/python /Users/npatel00/Developer/PycharmProjects/PythonLearnerUI/main.py",
+    "exec": "python3 ./main.py",
     "delay": "1500"
 }
