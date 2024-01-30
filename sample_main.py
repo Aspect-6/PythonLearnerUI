@@ -29,9 +29,13 @@ class App(customtkinter.CTk):
         self.sidebar_frame.grid_rowconfigure(4, weight=1)
 
         # Create sidebar title
-        self.logo_label = customtkinter.CTkLabel(
-            master=self.sidebar_frame, text="Python App", font=customtkinter.CTkFont(size=20, weight="bold"))
-        self.logo_label.grid(row=0, column=0, padx=20, pady=(20, 10))
+        self.logo_label = CTkLabel(master=self.sidebar_frame, text="Python App", gridargs={
+                "row": 0,
+                "column": 0,
+                "padx": 20,
+                "pady": (20, 10)
+            }, font=customtkinter.CTkFont(size=20, weight="bold")
+        )
 
         # Create sidebar buttons
         self.sidebar_button_1 = CTkButton(
