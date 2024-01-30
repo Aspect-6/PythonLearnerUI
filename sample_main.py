@@ -109,10 +109,8 @@ class App(customtkinter.CTk):
                 "padx": (20, 0),
                 "pady": (20, 0),
                 "sticky": "nsew"
-            }
+            }, pos=0.0, text="Testing the CTkTextbox functionality.\n\n" * 20
         )
-        self.textbox.insert("0.0", "CTkTextbox\n\n" +
-                            "Drew Everley is stoopid.\n\n" * 20)
 
         # Create tabview
         self.tabview = CTkTabview(master=self, gridargs={
