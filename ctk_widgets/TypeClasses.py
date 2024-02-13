@@ -1,10 +1,10 @@
 from typing import TypedDict, Union, Tuple, Optional
 
 class GridArgsT(TypedDict):
-    row: Union[int, Tuple[int, int]]
-    column: Union[int, Tuple[int, int]]
+    row: int
+    column: int
     padx: Union[int, Tuple[int, int]]
     pady: Union[int, Tuple[int, int]]
-    rowspan: Optional[Union[int, str]]
-    columnspan: Optional[Union[int, str]]
+    rowspan: Optional[int]
+    columnspan: Optional[int]
     sticky: Optional[Union[int, str]]

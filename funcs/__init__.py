@@ -1,0 +1,2 @@
+from funcs.print_color_coded import print_color_coded
+from funcs.generate_dict import generate_dict

@@ -1,0 +1,432 @@
+import tkinter
+import customtkinter
+from frames import SlideFrame
+from funcs import print_color_coded, generate_dict
+
+
+class OutputFrame(customtkinter.CTkFrame):
+    def __init__(self, master, **kwargs):
+        super().__init__(master, **kwargs)
+
+        def print_showcase_pre_run(split_string):
+            for i, word in enumerate(split_string):
+                if 'print(' in word:
+                    split_string[i:i+2] = ["print(", "\"Hello World!\"", ")\n"]
+            return split_string
+
+        def print_showcase_post_run(return_dict: dict):
+            stop = False
+            for key in return_dict:
+                if stop:
+                    # return_dict[key] = "my_var"
+                    break
+                if not stop and 'print(' in return_dict[key]:
+                    return_dict[key] = ">>> print("
+                    return_dict[key+1] = ")\n"
+                    return_dict['orange_1'] = "Hello World!"
+
+                # if key == "green_1":
+                #     return_dict[key] = "10\n"
+            return return_dict
+
+        self.color_dicts = {
+            "print_showcase": {
+                "str": ">>> print(\"Hello World!\") \nHello World!",
+                "dict": {
+                    "orange": ["Hello", "World!"]
+                }
+            },
+            "print_explanation": {
+                "str": "The \"print()\" statement is a built-in function in python that writes a message to the terminal. It takes in any type of value such as an integer, string, list, dictionary, a variable, or even an expression. The syntax of the \"print()\" statement is the word \"print\", followed by \"()\", and then the value that you wish to print between the parentheses. The print statement can also be used to print multiple values. All you have to do is separate each value you wish to print with a comma. The output will be each value separated by a space.rkwa0,ok",
+                "dict": {
+                    "green": ["print()", "integer", "string", "list", "dictionary", "variable", "expression", "\"print\"", "\"()\""],
+                    "blue": ["built-in", "terminal"]
+                }
+            }
+        }
+
+        self.strings = {
+            # region: View 1
+            "view_1_title": "Rendering output in the terminal",
+            "print_showcase_segments": generate_dict(self.color_dicts["print_showcase"]["str"], self.color_dicts["print_showcase"]["dict"], print_showcase_pre_run, print_showcase_post_run),
+            "print_explanation_segments": {
+                1: "The ",
+                "green_1": "\"print()\"",
+                2: " statement is a ",
+                "blue_1": "built-in",
+                3: " function in python that writes a message to the ",
+                "blue_2": "terminal.",
+                4: " It takes in any type of value such as an ",
+                "green_2": "integer, string, list, dictionary, a variable, ",
+                5: "or even an ",
+                "green_3": "expression.",
+                6: " The syntax of the ",
+                "green_4": "\"print()\"",
+                7: " statement is the word ",
+                "green_5": "\"print\"",
+                8: ", followed by ",
+                "green_6": "\"()\"",
+                9: ", and then the value that you wish to print between the parentheses. The print statement can also be used to print multiple values. All you have to do is separate each value you wish to print with a comma. The output will be each value separated by a space."
+            },
+            "print_explanation_segments": generate_dict(self.color_dicts["print_explanation"]["str"], self.color_dicts["print_explanation"]["dict"], None, None),
+            "print_examples_title": "Examples of printing different types of values",
+            "print_examples_segments": {
+                # 1st half of 1st print statement
+                1: ">>> print(",
+                "green_1": "10",                        # Print parameter int
+                2: ")\n",                               # 2nd half of 1st print statement
+                "green_2": "10\n",                      # Output of 1st print statement
+                # 1st half of 2nd print statement
+                3: ">>> print(",
+                "orange_1": "\"Python is awesome!\"",   # Print parameter str
+                4: ")\n",                               # 2nd half of 2nd print statement
+                "orange_2": "Python is awesome!\n",     # Output of 2nd print statement
+                # 1st half of 3rd print statement
+                5: ">>> print(",
+                "green_3": "10",                        # Print first parameter int
+                6: ", ",                                # Print value separator comma
+                "orange_3": "\"Python is awesome!\"",   # Print second parameter str
+                7: ")\n",                               # 2nd half of 3rd print statement
+                # Output of 3rd print statement first parameter int
+                "green_4": "10 ",
+                # Output of 3rd print statement second parameter str
+                "orange_4": "Python is awesome!",
+            },
+            # endregion
+            # region: View 2
+            "view_2_title": "Time to practice!",
+            "q1": "1. What is the output of the following code?",
+            "q1_code_segments": {
+                1: ">>> print(",
+                "green_1": "5",
+                2: ")"
+            },
+            "q2": "2. Which of the following will print the output: \"Python\"?",
+            "q2_opt1": "print(Python)",
+            "q2_opt2": "print(\"Python\")",
+            "q2_opt3": "print(\"Python)",
+            "q3": "3. Check all that is true about the print() statement.",
+            "q3_check1": "It can print strings",
+            "q3_check2": "It CANNOT print multiple values",
+            "q3_check3": "It shows output to the user",
+            # endregion
+            # region: View 3
+            "view_3_title": "Now try it yourself!",
+            "problem1": "1. Create a print() statement would print following code as its output.",
+            "problem1_code_segments": {
+                "orange_1": "Hello! ",
+                "green_1": "351"
+            },
+            "problem1_ans": "print(\"Hello!\", 351)",
+            "problem2": "2. Create a print() statement would print following code as its output. *Hint: There are multiple correct answers",
+            "problem2_code_segments": {
+                "green_1": "124 ",
+                "orange_1": "Learning Python ",
+                "green_2": "435"
+            },
+            "problem2_ans1": "print(124, \"Learning\", \"Python\", 435)",
+            "problem2_ans2": "print(124, \"Learning Python\", 435)",
+            "problem3": "3. Finally, create a print() statement would print code as its output.",
+            "problem3_code_segments": {
+                "orange_1": "Final ",
+                "green_1": "1 ",
+                "orange_2": "print ",
+                "green_2": "2 ",
+                "orange_3": "statement ",
+                "green_3": "3",
+            },
+            "problem3_ans": "print(\"Final\", 1, \"print\", 2, \"statement\", 3)"
+            # endregion
+        }
+
+        """
+        # View 1: Rendering output in the terminal
+        ----------------------------------------------------------------
+        # Learning about what the print statement does, what it can take
+        # in as arguments, and the correct syntax of the print statement
+        # and its arguments.
+        """
+        # region: View 1
+        # View 1 frame
+        self.view_1_frame = customtkinter.CTkFrame(
+            master=self, fg_color="transparent")
+        self.view_1_frame.grid_columnconfigure(0, weight=1)
+
+        # Create view 1 title label
+        self.view_1_title = customtkinter.CTkLabel(master=self.view_1_frame, text=self.strings.get(
+            "view_1_title"), height=40, font=("Arial", 18), fg_color="#3669a0", text_color="#fff", corner_radius=5)
+
+        # Showcase print() statement
+        self.print_showcase = customtkinter.CTkTextbox(
+            master=self.view_1_frame, height=46, wrap="word")
+        self.print_showcase.tag_config("orange", foreground="orange")
+        print_color_coded(["orange"], self.print_showcase,
+                          self.strings.get("print_showcase_segments"))
+
+        # Explanation of print() statement
+        self.print_explanation = customtkinter.CTkTextbox(
+            master=self.view_1_frame, height=254, fg_color="transparent", wrap="word", font=("Arial", 17))
+        self.print_explanation.tag_config("green", foreground="green")
+        self.print_explanation.tag_config("blue", foreground="#3d59d9")
+        print_color_coded(["green", "blue"], self.print_explanation,
+                          self.strings.get("print_explanation_segments"))
+
+        # Example title
+        self.example_title = customtkinter.CTkLabel(master=self.view_1_frame, text=self.strings.get(
+            "print_examples_title"), height=40, font=("Arial", 17), fg_color="#3669a0", text_color="#fff", corner_radius=5)
+        # Examples of print() statement
+        self.print_examples = customtkinter.CTkTextbox(
+            master=self.view_1_frame, height=110, wrap="word")
+        self.print_examples.tag_config("green", foreground="green")
+        self.print_examples.tag_config("orange", foreground="orange")
+        print_color_coded(["green", "orange"], self.print_examples,
+                          self.strings.get("print_examples_segments"))
+        # endregion
+
+        """
+        # View 2: Time to practice!
+        ----------------------------------------------------------------
+        # Determining the output of a print statement, selecting the
+        # correct syntax of a print statement, and determining all true
+        # properties about the print statement.
+        """
+        # region: View 2
+        # View 2 frame
+        self.view_2_frame = customtkinter.CTkFrame(
+            master=self, fg_color="transparent")
+        self.view_2_frame.grid_columnconfigure(0, weight=1)
+
+        # Create view 2 title label
+        self.view_2_title = customtkinter.CTkLabel(master=self.view_2_frame, text=self.strings.get(
+            "view_2_title"), height=40, font=("Arial", 17), fg_color="#3669a0", text_color="#fff", corner_radius=5)
+
+        # region: Question 1
+        self.q1_frame = customtkinter.CTkFrame(
+            master=self.view_2_frame, fg_color="transparent")
+        self.q1_frame.grid_columnconfigure(0, weight=1)
+        self.q1 = customtkinter.CTkLabel(master=self.q1_frame, text=self.strings.get(
+            "q1"), height=15, font=("Arial", 15), anchor="w")
+        self.q1_code = customtkinter.CTkTextbox(
+            master=self.q1_frame, height=15)
+        self.q1_code.tag_config("green", foreground="green")
+        print_color_coded(["green"], self.q1_code,
+                          self.strings.get("q1_code_segments"))
+        self.q1_subframe = customtkinter.CTkFrame(
+            master=self.q1_frame, fg_color="transparent")
+        self.q1_subframe.grid_columnconfigure(0, weight=1)
+        self.q1_input = customtkinter.CTkEntry(
+            master=self.q1_subframe, placeholder_text="Answer")
+        self.q1_btn = customtkinter.CTkButton(master=self.q1_subframe, text="Enter", width=80,
+                                              command=lambda: self.check_input_answer(["5"], self.q1_input.get(), self.q1_btn, True, self.q1_code, "green"))
+        # endregion
+
+        # region: Question 2
+        self.q2_frame = customtkinter.CTkFrame(
+            master=self.view_2_frame, fg_color="transparent")
+        self.q2_frame.grid_columnconfigure(0, weight=1)
+        self.q2 = customtkinter.CTkLabel(master=self.q2_frame, text=self.strings.get(
+            "q2"), height=15, font=("Arial", 15), anchor="w")
+        self.q2_radio_frame = customtkinter.CTkFrame(
+            master=self.q2_frame, fg_color="transparent")
+        self.q2_var = tkinter.IntVar(value=0)
+        self.q2_opt1 = customtkinter.CTkRadioButton(
+            self.q2_radio_frame, text=self.strings.get("q2_opt1"), variable=self.q2_var, value=1)
+        self.q2_opt2 = customtkinter.CTkRadioButton(
+            self.q2_radio_frame, text=self.strings.get("q2_opt2"), variable=self.q2_var, value=2)
+        self.q2_opt3 = customtkinter.CTkRadioButton(
+            self.q2_radio_frame, text=self.strings.get("q2_opt3"), variable=self.q2_var, value=3)
+        self.q2_btn = customtkinter.CTkButton(
+            master=self.q2_frame, text="Enter")
+        # endregion
+
+        # region: Question 3
+        self.q3_frame = customtkinter.CTkFrame(
+            master=self.view_2_frame, fg_color="transparent")
+        self.q3_frame.grid_columnconfigure(0, weight=1)
+        self.q3 = customtkinter.CTkLabel(master=self.q3_frame, text=self.strings.get(
+            "q3"), height=15, font=("Arial", 15), anchor="w")
+        self.q3_check_frame = customtkinter.CTkFrame(
+            master=self.q3_frame, fg_color="transparent")
+        self.q3_check1 = customtkinter.CTkCheckBox(
+            master=self.q3_check_frame, text=self.strings.get("q3_check1"))
+        self.q3_check2 = customtkinter.CTkCheckBox(
+            master=self.q3_check_frame, text=self.strings.get("q3_check2"))
+        self.q3_check3 = customtkinter.CTkCheckBox(
+            master=self.q3_check_frame, text=self.strings.get("q3_check3"))
+        self.q3_btn = customtkinter.CTkButton(
+            master=self.q3_frame, text="Enter")
+        # endregion
+
+        # endregion
+
+        """
+        # View 3: Now try it yourself!
+        ----------------------------------------------------------------
+        # Building print statements to output given lines of text.
+        """
+        # region: View 3
+        # View 3 frame
+        self.view_3_frame = customtkinter.CTkFrame(
+            master=self, fg_color="transparent")
+        self.view_3_frame.grid_columnconfigure(0, weight=1)
+
+        # Create view 3 title label
+        self.view_3_title = customtkinter.CTkLabel(master=self.view_3_frame, text=self.strings.get(
+            "view_3_title"), height=40, font=("Arial", 17), fg_color="#3669a0", text_color="#fff", corner_radius=5)
+
+        # region: Problem 1
+        # Problem 1
+        self.problem1_title = customtkinter.CTkLabel(master=self.view_3_frame, text=self.strings.get(
+            "problem1"), font=("Arial", 15), justify="left", wraplength=383)
+        self.problem1_code = customtkinter.CTkTextbox(
+            master=self.view_3_frame, height=15)
+        self.problem1_code.tag_config("green", foreground="green")
+        self.problem1_code.tag_config("orange", foreground="orange")
+        print_color_coded(["green", "orange"], self.problem1_code,
+                          self.strings.get("problem1_code_segments"))
+        self.problem1_subframe = customtkinter.CTkFrame(
+            master=self.view_3_frame, fg_color="transparent")
+        self.q1_subframe.grid_columnconfigure(0, weight=1)
+        self.problem1_input = customtkinter.CTkEntry(
+            master=self.problem1_subframe, placeholder_text="Answer")
+        self.problem1_btn = customtkinter.CTkButton(master=self.problem1_subframe, text="Enter", width=80,
+                                                    command=lambda: self.check_input_answer([self.strings.get("problem1_ans")], self.problem1_input.get(), self.problem1_btn, False))
+        # endregion
+
+        # region: Problem 2
+        # Problem 2
+        self.problem2_title = customtkinter.CTkLabel(master=self.view_3_frame, text=self.strings.get(
+            "problem2"), font=("Arial", 15), justify="left", wraplength=383)
+        self.problem2_code = customtkinter.CTkTextbox(
+            master=self.view_3_frame, height=15)
+        self.problem2_code.tag_config("green", foreground="green")
+        self.problem2_code.tag_config("orange", foreground="orange")
+        print_color_coded(["green", "orange"], self.problem2_code,
+                          self.strings.get("problem2_code_segments"))
+        self.problem2_subframe = customtkinter.CTkFrame(
+            master=self.view_3_frame, fg_color="transparent")
+        self.q1_subframe.grid_columnconfigure(0, weight=1)
+        self.problem2_input = customtkinter.CTkEntry(
+            master=self.problem2_subframe, placeholder_text="Answer")
+        self.problem2_btn = customtkinter.CTkButton(master=self.problem2_subframe, text="Enter", width=80,
+                                                    command=lambda: self.check_input_answer([self.strings.get("problem2_ans1"), self.strings.get("problem2_ans2")], self.problem2_input.get(), self.problem2_btn, False))
+        # endregion
+
+        # region: Problem 3
+        # Problem 3
+        self.problem3_title = customtkinter.CTkLabel(master=self.view_3_frame, text=self.strings.get(
+            "problem3"), font=("Arial", 15), justify="left", wraplength=383)
+        self.problem3_code = customtkinter.CTkTextbox(
+            master=self.view_3_frame, height=15)
+        self.problem3_code.tag_config("green", foreground="green")
+        self.problem3_code.tag_config("orange", foreground="orange")
+        print_color_coded(["green", "orange"], self.problem3_code,
+                          self.strings.get("problem3_code_segments"))
+        self.problem3_subframe = customtkinter.CTkFrame(
+            master=self.view_3_frame, fg_color="transparent")
+        self.q1_subframe.grid_columnconfigure(0, weight=1)
+        self.problem3_input = customtkinter.CTkEntry(
+            master=self.problem3_subframe, placeholder_text="Answer")
+        self.problem3_btn = customtkinter.CTkButton(master=self.problem3_subframe, text="Enter", width=80,
+                                                    command=lambda: self.check_input_answer([self.strings.get("problem3_ans")], self.problem3_input.get(), self.problem3_btn, False))
+        # endregion
+
+        # endregion
+
+        # Create slide frame
+        self.slide_frame = SlideFrame(master=self, fg_color="transparent", views=[
+                                      self.view_1_frame, self.view_2_frame, self.view_3_frame])
+
+        # Create layout
+        self.create_layout()
+
+    def check_input_answer(self, correct_answers: list[str], input: str, btn: customtkinter.CTkButton, updateTextbox: bool, textbox: customtkinter.CTkTextbox = None, color: str = ""):
+        if isinstance(correct_answers, list):
+            for correct in correct_answers:
+                if input == correct:
+                    if textbox is not None:
+                        if updateTextbox is True:
+                            textbox.configure(state="normal")
+                            textbox.insert("end", f"\n{correct}", color)
+                            textbox.configure(state="disabled", height=46)
+                    btn.configure(state="disabled")
+        elif input == correct_answers:
+            if textbox is not None:
+                textbox.configure(state="normal")
+                textbox.insert("end", f"\n{correct_answers}", color)
+                textbox.configure(state="disabled", height=46)
+            btn.configure(state="disabled")
+
+    def check_radio_answer(self): pass
+
+    def create_layout(self):
+        # Layout
+
+        # View 1 frame layout
+        self.view_1_frame.place(
+            relx=0.5, rely=0.5, relheight=0.95, relwidth=0.9, anchor="center")
+        self.view_1_title.grid(row=0, column=0, pady=(0, 5), sticky="we")
+        self.print_showcase.grid(row=1, column=0, pady=10, sticky="we")
+        self.print_explanation.grid(row=2, column=0, pady=(5, 10), sticky="we")
+        self.example_title.grid(row=3, column=0, pady=10, sticky="we")
+        self.print_examples.grid(row=4, column=0, pady=10, sticky="we")
+
+        # View 2 frame layout
+        self.view_2_frame.place(
+            relx=1.5, rely=0.5, relheight=0.95, relwidth=0.9, anchor="center")
+        self.view_2_title.grid(row=0, column=0, pady=(0, 5), sticky="we")
+
+        # Question 1 frame layout
+        self.q1_frame.grid(row=1, column=0, pady=10, sticky="we")
+        self.q1.grid(row=0, column=0, pady=(0, 5), sticky="we")
+        self.q1_code.grid(row=1, column=0, pady=5, sticky="we")
+        self.q1_subframe.grid(row=2, column=0, pady=(5, 0), sticky="we")
+        self.q1_input.pack(side="left", expand=True, fill="x", padx=(0, 5))
+        self.q1_btn.pack(side="left")
+
+        # Question 2 frame layout
+        self.q2_frame.grid(row=2, column=0, pady=(10, 5), sticky="we")
+        self.q2.grid(row=0, column=0, pady=5, sticky="we")
+        self.q2_radio_frame.grid(row=1, column=0, pady=5, sticky="we")
+        self.q2_opt1.grid(row=2, column=0, pady=5, sticky="we")
+        self.q2_opt2.grid(row=3, column=0, pady=5, sticky="we")
+        self.q2_opt3.grid(row=4, column=0, pady=5, sticky="we")
+        self.q2_btn.grid(row=5, column=0, pady=5, sticky="we")
+
+        # Question 3 frame layout
+        self.q3_frame.grid(row=3, column=0, pady=(10, 5), sticky="we")
+        self.q3.grid(row=0, column=0, pady=5, sticky="we")
+        self.q3_check_frame.grid(row=1, column=0, pady=5, sticky="we")
+        self.q3_check1.grid(row=2, column=0, pady=5, sticky="we")
+        self.q3_check2.grid(row=3, column=0, pady=5, sticky="we")
+        self.q3_check3.grid(row=4, column=0, pady=5, sticky="we")
+        self.q3_btn.grid(row=5, column=0, pady=5, sticky="we")
+
+        # View 3 frame layout
+        self.view_3_frame.place(
+            relx=2.5, rely=0.5, relheight=0.95, relwidth=0.9, anchor="center")
+        self.view_3_title.grid(row=0, column=0, pady=(0, 5), sticky="we")
+
+        # Question 1 frame layout
+        self.problem1_title.grid(row=1, column=0, pady=(10, 5), sticky="we")
+        self.problem1_code.grid(row=2, column=0, pady=5, sticky="we")
+        self.problem1_subframe.grid(row=3, column=0, pady=(5, 0), sticky="we")
+        self.problem1_input.pack(
+            side="left", expand=True, fill="x", padx=(0, 5))
+        self.problem1_btn.pack(side="left")
+
+        # Question 2 frame layout
+        self.problem2_title.grid(row=4, column=0, pady=(15, 5), sticky="we")
+        self.problem2_code.grid(row=5, column=0, pady=5, sticky="we")
+        self.problem2_subframe.grid(row=6, column=0, pady=(5, 0), sticky="we")
+        self.problem2_input.pack(
+            side="left", expand=True, fill="x", padx=(0, 5))
+        self.problem2_btn.pack(side="left")
+
+        # Question 3 frame layout
+        self.problem3_title.grid(row=7, column=0, pady=(15, 5), sticky="we")
+        self.problem3_code.grid(row=8, column=0, pady=5, sticky="we")
+        self.problem3_subframe.grid(row=9, column=0, pady=(5, 0), sticky="we")
+        self.problem3_input.pack(
+            side="left", expand=True, fill="x", padx=(0, 5))
+        self.problem3_btn.pack(side="left")
