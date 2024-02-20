@@ -27,12 +27,12 @@ class DataTypesFrame(customtkinter.CTkFrame):
         self.strings = {
             #region: View 1M
             "view_1_title": "Basic data types in Python",
-            "data_types_explanation_segments": generate_dict(self.colors_dict, "data_types", None, None),
+            "data_types_explanation_segments": generate_dict(self.colors_dict, "data_types"),
             #endregion
             
             #region: View 2
             "integer_title": "Integer data types in Python",
-            "integer_explanation_segments": generate_dict(self.colors_dict, "integers", None, None)
+            "integer_explanation_segments": generate_dict(self.colors_dict, "integers")
             #endregion
 
             #region: View 3

@@ -44,7 +44,7 @@ class OutputFrame(customtkinter.CTkFrame):
             # region: View 1
             "view_1_title": "Rendering output in the terminal",
             "print_showcase_segments": generate_dict(self.color_dicts, "print_showcase",  print_showcase_pre_run, print_showcase_post_run),
-            "print_explanation_segments": generate_dict(self.color_dicts, "print_explanation", None, None),
+            "print_explanation_segments": generate_dict(self.color_dicts, "print_explanation"),
             "print_examples_title": "Examples of printing different types of values",
             "print_examples_segments": {
                 # 1st half of 1st print statement
