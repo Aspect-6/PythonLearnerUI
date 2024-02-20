@@ -2,7 +2,7 @@ import tkinter
 import tkinter
 import customtkinter
 from ctk_widgets.CTk import CTkLabel, CTkButton, CTkOptionMenu
-from frames import OutputFrame, StoringDataFrame
+from frames import OutputFrame, DataTypesFrame, StoringDataFrame
 
 # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_appearance_mode("System")
@@ -14,18 +14,18 @@ class MainTabview(customtkinter.CTkTabview):
         super().__init__(master, **kwargs)
 
         # Add tabs
-        self.add("Output & Storing Data")
+        self.add("Output & Data Types")
         self.add("Temporary")
 
-        # Configure grid for "Output & Storing Data" tab
-        self.tab("Output & Storing Data").grid_rowconfigure(0, weight=1)
+        # Configure grid for "Output & Data Types" tab
+        self.tab("Output & Data Types").grid_rowconfigure(0, weight=1)
         self.tab("Temporary").grid_columnconfigure(0, weight=1)
 
-        self.output_frame = OutputFrame(master=self.tab("Output & Storing Data"), width=420, fg_color="#373737")
+        self.output_frame = OutputFrame(master=self.tab("Output & Data Types"), width=420, fg_color="#373737")
         self.output_frame.grid(row=0, column=0, padx=20, pady=20, sticky="nsw")
         self.output_frame.grid_columnconfigure(2, weight=1)
 
-        self.data_frame = StoringDataFrame(master=self.tab("Output & Storing Data"), width=420, fg_color="#373737")
+        self.data_frame = DataTypesFrame(master=self.tab("Output & Data Types"), width=420, fg_color="#373737")
         self.data_frame.grid(row=0, column=1, padx=20, pady=20, sticky="nsw")
         self.data_frame.grid_columnconfigure(2, weight=1)
 

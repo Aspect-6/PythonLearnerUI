@@ -64,8 +64,8 @@ class StoringDataFrame(customtkinter.CTkFrame):
         self.strings = {
             #region: View 1
             "view_1_title": "Storing Data in Python",
-            "data_showcase_segments": generate_dict(self.color_dicts["data_showcase"]["str"], self.color_dicts["data_showcase"]["dict"], data_showcase_pre_run, data_showcase_post_run),
-            "var_explanation_segments": generate_dict(self.color_dicts["var_explanation"]["str"], self.color_dicts["var_explanation"]["dict"], var_explanation_pre_run, var_explanation_post_run)
+            "data_showcase_segments": generate_dict(self.color_dicts, "data_showcase", data_showcase_pre_run, data_showcase_post_run),
+            "var_explanation_segments": generate_dict(self.color_dicts, "var_explanation", var_explanation_pre_run, var_explanation_post_run)
             #endregion
         }
 
@@ -97,6 +97,10 @@ class StoringDataFrame(customtkinter.CTkFrame):
         #endregion
 
         #region: View 2
+        self.view_2_frame = customtkinter.CTkFrame(master=self, fg_color="transparent")
+        self.view_2_frame.grid_columnconfigure(0, weight=1)
+
+        
         #endregion
 
         #region: View 3
