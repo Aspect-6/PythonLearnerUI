@@ -1,4 +1,5 @@
 import customtkinter
+from custom.textbox import add_colors
 from funcs import print_color_coded, generate_dict
 from frames import SlideFrame
 
@@ -86,14 +87,14 @@ class StoringDataFrame(customtkinter.CTkFrame):
         self.data_showcase = customtkinter.CTkTextbox(master=self.view_1_frame, height=62, wrap="none")
         self.data_showcase.tag_config("green", foreground="green")
         self.data_showcase.tag_config("purple", foreground="#bf00dd")
-        print_color_coded(["green", "purple"], self.data_showcase, self.strings.get("data_showcase_segments"))
+        add_colors(self.data_showcase, {"green": "green", "purple": "bf00dd"}, self.strings.get("data_showcase_segments"))
         
         # Explanation of variables
         self.var_explanation = customtkinter.CTkTextbox(master=self.view_1_frame, height=314, fg_color="transparent", wrap="word", font=("Arial", 17))
         self.var_explanation.tag_config("green", foreground="green")
         self.var_explanation.tag_config("blue", foreground="#3d59d9")
         self.var_explanation.tag_config("purple", foreground="#bf00dd")
-        print_color_coded(self.var_explanation.tag_names(), self.var_explanation, self.strings.get("var_explanation_segments"))
+        add_colors(self.var_explanation, {"green": "green", "blue": "#3d59d9", "purple": "#bf00dd"}, self.strings.get("var_explanation_segments"))
         #endregion
 
         #region: View 2

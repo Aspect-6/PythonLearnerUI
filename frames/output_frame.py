@@ -1,5 +1,7 @@
 import tkinter
 import customtkinter
+from custom.textbox import textbox_args, add_colors
+from custom.label import label_args
 from frames import SlideFrame
 from funcs import print_color_coded, generate_dict
 
@@ -43,7 +45,7 @@ class OutputFrame(customtkinter.CTkFrame):
         self.strings = {
             # region: View 1
             "view_1_title": "Rendering output in the terminal",
-            "print_showcase_segments": generate_dict(self.color_dicts, "print_showcase",  print_showcase_pre_run, print_showcase_post_run),
+            "print_showcase_segments": generate_dict(self.color_dicts, "print_showcase", print_showcase_pre_run, print_showcase_post_run),
             "print_explanation_segments": generate_dict(self.color_dicts, "print_explanation"),
             "print_examples_title": "Examples of printing different types of values",
             "print_examples_segments": {
@@ -128,26 +130,21 @@ class OutputFrame(customtkinter.CTkFrame):
         self.view_1_frame.grid_columnconfigure(0, weight=1)
 
         # Create view 1 title label
-        self.view_1_title = customtkinter.CTkLabel(master=self.view_1_frame, text=self.strings.get("view_1_title"), height=40, font=("Arial", 18), fg_color="#3669a0", text_color="#fff", corner_radius=5)
+        self.view_1_title = customtkinter.CTkLabel(master=self.view_1_frame, text=self.strings.get("view_1_title"), **label_args)
 
         # Showcase print() statement
         self.print_showcase = customtkinter.CTkTextbox(master=self.view_1_frame, height=46, wrap="word")
-        self.print_showcase.tag_config("orange", foreground="orange")
-        print_color_coded(["orange"], self.print_showcase, self.strings.get("print_showcase_segments"))
+        add_colors(self.print_showcase, {"orange": "orange"}, self.strings.get("print_showcase_segments"))
 
         # Explanation of print() statement
-        self.print_explanation = customtkinter.CTkTextbox(master=self.view_1_frame, height=254, fg_color="transparent", wrap="word", font=("Arial", 17))
-        self.print_explanation.tag_config("green", foreground="green")
-        self.print_explanation.tag_config("blue", foreground="#3d59d9")
-        print_color_coded(["green", "blue"], self.print_explanation, self.strings.get("print_explanation_segments"))
+        self.print_explanation = customtkinter.CTkTextbox(master=self.view_1_frame, height=254, **textbox_args)
+        add_colors(self.print_explanation, {"green": "green", "blue": "#3d59d9"}, self.strings.get("print_explanation_segments"))
 
         # Example title
-        self.example_title = customtkinter.CTkLabel(master=self.view_1_frame, text=self.strings.get( "print_examples_title"), height=40, font=("Arial", 17), fg_color="#3669a0", text_color="#fff", corner_radius=5)
+        self.example_title = customtkinter.CTkLabel(master=self.view_1_frame, text=self.strings.get("print_examples_title"), **label_args)
         # Examples of print() statement
         self.print_examples = customtkinter.CTkTextbox(master=self.view_1_frame, height=110, wrap="word")
-        self.print_examples.tag_config("green", foreground="green")
-        self.print_examples.tag_config("orange", foreground="orange")
-        print_color_coded(["green", "orange"], self.print_examples, self.strings.get("print_examples_segments"))
+        add_colors(self.print_examples, {"green": "green", "orange": "orange"}, self.strings.get("print_examples_segments"))
         # endregion
 
         """
@@ -163,7 +160,7 @@ class OutputFrame(customtkinter.CTkFrame):
         self.view_2_frame.grid_columnconfigure(0, weight=1)
 
         # Create view 2 title label
-        self.view_2_title = customtkinter.CTkLabel(master=self.view_2_frame, text=self.strings.get( "view_2_title"), height=40, font=("Arial", 17), fg_color="#3669a0", text_color="#fff", corner_radius=5)
+        self.view_2_title = customtkinter.CTkLabel(master=self.view_2_frame, text=self.strings.get("view_2_title"), **label_args)
 
         # region: Question 1
         self.q1_frame = customtkinter.CTkFrame(master=self.view_2_frame, fg_color="transparent")
@@ -171,7 +168,7 @@ class OutputFrame(customtkinter.CTkFrame):
         self.q1 = customtkinter.CTkLabel(master=self.q1_frame, text=self.strings.get( "q1"), height=15, font=("Arial", 15), anchor="w")
         self.q1_code = customtkinter.CTkTextbox(master=self.q1_frame, height=15)
         self.q1_code.tag_config("green", foreground="green")
-        print_color_coded(["green"], self.q1_code, self.strings.get("q1_code_segments"))
+        add_colors(self.q1_code, {"green": "green"}, self.strings.get("q1_code_segments"))
         self.q1_subframe = customtkinter.CTkFrame(master=self.q1_frame, fg_color="transparent")
         self.q1_subframe.grid_columnconfigure(0, weight=1)
         self.q1_input = customtkinter.CTkEntry(master=self.q1_subframe, placeholder_text="Answer")
@@ -214,15 +211,14 @@ class OutputFrame(customtkinter.CTkFrame):
         self.view_3_frame.grid_columnconfigure(0, weight=1)
 
         # Create view 3 title label
-        self.view_3_title = customtkinter.CTkLabel(master=self.view_3_frame, text=self.strings.get("view_3_title"), height=40, font=("Arial", 17), fg_color="#3669a0", text_color="#fff", corner_radius=5)
+        self.view_3_title = customtkinter.CTkLabel(master=self.view_3_frame, text=self.strings.get("view_3_title"), **label_args)
 
         # region: Problem 1
-        # Problem 1
         self.problem1_title = customtkinter.CTkLabel(master=self.view_3_frame, text=self.strings.get("problem1"), font=("Arial", 15), justify="left", wraplength=383)
         self.problem1_code = customtkinter.CTkTextbox(master=self.view_3_frame, height=15)
         self.problem1_code.tag_config("green", foreground="green")
         self.problem1_code.tag_config("orange", foreground="orange")
-        print_color_coded(["green", "orange"], self.problem1_code,self.strings.get("problem1_code_segments"))
+        add_colors(self.problem1_code, {"green": "green", "orange": "orange"}, self.strings.get("problem1_code_segments"))
         self.problem1_subframe = customtkinter.CTkFrame(master=self.view_3_frame, fg_color="transparent")
         self.q1_subframe.grid_columnconfigure(0, weight=1)
         self.problem1_input = customtkinter.CTkEntry(master=self.problem1_subframe, placeholder_text="Answer")
@@ -231,12 +227,11 @@ class OutputFrame(customtkinter.CTkFrame):
         # endregion
 
         # region: Problem 2
-        # Problem 2
         self.problem2_title = customtkinter.CTkLabel(master=self.view_3_frame, text=self.strings.get("problem2"), font=("Arial", 15), justify="left", wraplength=383)
         self.problem2_code = customtkinter.CTkTextbox(master=self.view_3_frame, height=15)
         self.problem2_code.tag_config("green", foreground="green")
         self.problem2_code.tag_config("orange", foreground="orange")
-        print_color_coded(["green", "orange"], self.problem2_code,self.strings.get("problem2_code_segments"))
+        add_colors(self.problem2_code, {"green": "green", "orange": "orange"}, self.strings.get("problem2_code_segments"))
         self.problem2_subframe = customtkinter.CTkFrame(master=self.view_3_frame, fg_color="transparent")
         self.q1_subframe.grid_columnconfigure(0, weight=1)
         self.problem2_input = customtkinter.CTkEntry(master=self.problem2_subframe, placeholder_text="Answer")
@@ -245,12 +240,11 @@ class OutputFrame(customtkinter.CTkFrame):
         # endregion
 
         # region: Problem 3
-        # Problem 3
         self.problem3_title = customtkinter.CTkLabel(master=self.view_3_frame, text=self.strings.get("problem3"), font=("Arial", 15), justify="left", wraplength=383)
         self.problem3_code = customtkinter.CTkTextbox(master=self.view_3_frame, height=15)
         self.problem3_code.tag_config("green", foreground="green")
         self.problem3_code.tag_config("orange", foreground="orange")
-        print_color_coded(["green", "orange"], self.problem3_code,self.strings.get("problem3_code_segments"))
+        add_colors(self.problem3_code, {"green": "green", "orange": "orange"}, self.strings.get("problem3_code_segments"))
         self.problem3_subframe = customtkinter.CTkFrame(master=self.view_3_frame, fg_color="transparent")
         self.q1_subframe.grid_columnconfigure(0, weight=1)
         self.problem3_input = customtkinter.CTkEntry(master=self.problem3_subframe, placeholder_text="Answer")
@@ -261,7 +255,7 @@ class OutputFrame(customtkinter.CTkFrame):
         # endregion
 
         # Create slide frame
-        self.slide_frame = SlideFrame(master=self, fg_color="transparent", views=[self.view_1_frame, self.view_2_frame, self.view_3_frame])
+        SlideFrame(master=self, fg_color="transparent", views=[self.view_1_frame, self.view_2_frame, self.view_3_frame])
 
         # Create layout
         self.create_layout()
