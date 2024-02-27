@@ -10,22 +10,6 @@ class OutputFrame(customtkinter.CTkFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
 
-        def print_showcase_pre_run(split_string):
-            for i, word in enumerate(split_string):
-                if 'print(' in word:
-                    split_string[i:i+2] = ["print(", "\"Hello World!\"", ")\n"]
-            return split_string
-
-        def print_showcase_post_run(return_dict: dict):
-            stop = False
-            for key in return_dict:
-                if stop: break
-                if not stop and 'print(' in return_dict[key]:
-                    return_dict[key] = ">>> print("
-                    return_dict[key+1] = ")\n"
-                    return_dict['orange_1'] = "Hello World!"
-            return return_dict
-
         self.color_dicts = {
             "print_showcase": {
                 "str": ">>> print(\"Hello World!\") \nHello World!",
@@ -36,8 +20,8 @@ class OutputFrame(customtkinter.CTkFrame):
             "print_explanation": {
                 "str": "The \"print()\" statement is a built-in function in python that writes a message to the terminal. It takes in any type of value such as an integer, string, list, dictionary, a variable, or even an expression. The syntax of the \"print()\" statement is the word \"print\", followed by \"()\", and then the value that you wish to print between the parentheses. The print statement can also be used to print multiple values. All you have to do is separate each value you wish to print with a comma. The output will be each value separated by a space.",
                 "dict": {
-                    "green": ["print()", "integer", "string", "list", "dictionary", "variable", "expression", "\"print\"", "\"()\""],
-                    "blue": ["built-in", "terminal"]
+                    "green": ["print()", "integer", "string", "list", "dictionary", "variable", "expression", "print", "\"()\"", "comma", "value", "space"],
+                    "blue": ["built-in", "terminal", "output"]
                 }
             },
         }
@@ -45,7 +29,12 @@ class OutputFrame(customtkinter.CTkFrame):
         self.strings = {
             # region: View 1
             "view_1_title": "Rendering output in the terminal",
-            "print_showcase_segments": generate_dict(self.color_dicts, "print_showcase", print_showcase_pre_run, print_showcase_post_run),
+            "print_showcase_segments": {
+                1: ">>> print(",
+                "orange_1": "\"Hello World!\"",
+                2: ")\n",
+                "orange_2": "Hello World!"
+            },
             "print_explanation_segments": generate_dict(self.color_dicts, "print_explanation"),
             "print_examples_title": "Examples of printing different types of values",
             "print_examples_segments": {
@@ -137,7 +126,7 @@ class OutputFrame(customtkinter.CTkFrame):
         add_colors(self.print_showcase, {"orange": "orange"}, self.strings.get("print_showcase_segments"))
 
         # Explanation of print() statement
-        self.print_explanation = customtkinter.CTkTextbox(master=self.view_1_frame, height=254, **textbox_args)
+        self.print_explanation = customtkinter.CTkTextbox(master=self.view_1_frame, height=230, **textbox_args)
         add_colors(self.print_explanation, {"green": "green", "blue": "#3d59d9"}, self.strings.get("print_explanation_segments"))
 
         # Example title
