@@ -33,7 +33,7 @@ def generate_dict(colors_dict: dict, name: str, pre_run=None, post_run=None):
         found_color: bool = False
         for key in colors_dict[name]["dict"]:
             for item in colors_dict[name]["dict"][key]:
-                if item in word:
+                if item in word.lower():
                     if not concat_string == "":
                         return_dict[non_color_count] = concat_string
                         non_color_count += 1
