@@ -1,7 +1,7 @@
 import customtkinter
 from funcs import print_color_coded
 
-textbox_args = { "fg_color": "transparent", "wrap": "word", "font": ("Arial", 17) }
+textbox_args = { "fg_color": "transparent", "wrap": "word", "font": ("Arial", 16) }
 
 def add_colors(textbox: customtkinter.CTkTextbox, colors: dict[str, str], string: str):
     for key in colors:
