@@ -1,1 +1,1 @@
-label_args = { "height":40, "font":("Arial", 18), "fg_color":"#3669a0", "text_color":"#fff", "corner_radius":5}
+label_args = { "height": 40, "font": ("Arial", 18), "fg_color": "#3669a0", "text_color": "#fff", "corner_radius": 5 }
