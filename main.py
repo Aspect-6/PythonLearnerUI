@@ -39,8 +39,8 @@ class App(customtkinter.CTk):
 
         # Configure window size
         self.title("Learn Python")
-        self.geometry(f"{1155}x{self.win_height}")
-        self.minsize(1155, self.win_height-120)
+        self.geometry(f"{1155}x{780}")
+        self.minsize(1155, 780)
 
         # Configure grid layout
         self.grid_columnconfigure((2, 3), weight=1)
