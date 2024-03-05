@@ -19,8 +19,6 @@ def print_color_coded(colors: list[str], textbox: customtkinter.CTkTextbox, segm
     for key in segments:
         if not isinstance(key, int):
             for color in colors:
-                if color == "white":
-                    textbox.insert("end", segments.get(key))
                 if color in key:
                     textbox.insert("end", segments.get(key), color)
         else:
