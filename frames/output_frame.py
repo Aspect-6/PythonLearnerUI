@@ -3,7 +3,7 @@ import customtkinter
 from custom.textbox import textbox_args, add_colors
 from custom.label import label_args
 from frames import SlideFrame
-from funcs import print_color_coded, generate_dict
+from funcs import generate_dict
 
 
 class OutputFrame(customtkinter.CTkFrame):
