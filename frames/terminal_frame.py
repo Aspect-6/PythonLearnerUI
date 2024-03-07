@@ -1,23 +1,24 @@
-# os: This is a built-in Python module that provides a portable way of using operating system dependent functionality. 
+# os: This is a built-in Python module that provides a portable way of using operating system dependent functionality.
 # It allows you to interface with the underlying operating system that Python is running on – be that Windows, Mac or Linux.
 import os
-# pty: This is a Python library for creating and using Unix pseudo-terminals. 
+# pty: This is a Python library for creating and using Unix pseudo-terminals.
 # Pseudo-terminals are pairs of virtual devices that provide an interface emulating a terminal.
 import pty
-# subprocess: This is a Python module used to spawn new processes, connect to their input/output/error pipes, 
+# subprocess: This is a Python module used to spawn new processes, connect to their input/output/error pipes,
 # and obtain their return codes. It allows you to spawn new processes and manage their input/output streams.
 import subprocess
-# threading: This is a built-in Python module used to create, control and manage threads. 
+# threading: This is a built-in Python module used to create, control and manage threads.
 # A thread is a separate flow of execution. This means that your program will have two things happening at once.
 import threading
-# pyte: This is a Python library that provides a simple VTXXX-compatible terminal emulator. 
-# VTXXX is a series of video terminals made by Digital Equipment Corporation. Pyte emulates these terminals and 
+# pyte: This is a Python library that provides a simple VTXXX-compatible terminal emulator.
+# VTXXX is a series of video terminals made by Digital Equipment Corporation. Pyte emulates these terminals and
 # allows you to create and manage virtual screens of any size.
 from pyte import Screen, Stream
 
 import customtkinter
 
-class EmbeddedTerminal(customtkinter.CTkFrame):
+
+class EmbeddedShell(customtkinter.CTkFrame):
     def __init__(self, master, ispythonshell: bool = False, **kwargs):
         # Call the parent class's constructor
         # 'master' is the parent widget.
@@ -34,7 +35,8 @@ class EmbeddedTerminal(customtkinter.CTkFrame):
         self.text.pack(fill='both', expand=True)
 
         # Create an Entry widget for the user input
-        self.entry = customtkinter.CTkEntry(self, placeholder_text="Type your command here and press Enter. Some commands may take a few seconds to execute or show output.")
+        self.entry = customtkinter.CTkEntry(
+            self, placeholder_text="Type your command here and press Enter. Some commands may take a few seconds to execute or show output.")
         self.entry.pack(fill='x', pady=(10, 0))
         # Bind the send_input method to the Return event
         # When the user presses Enter, the send_input method will be called.
@@ -63,7 +65,8 @@ class EmbeddedTerminal(customtkinter.CTkFrame):
         # preexec_fn=os.setsid is used to make the process run in a new session.
         # stdin, stdout, and stderr are set to slave_fd, which means the input and output of the process are connected to the tty.
         # universal_newlines=True is used to make the process use universal newline mode, which treats all newline characters the same.
-        self.process = subprocess.Popen(['/bin/bash'], preexec_fn=os.setsid, stdin=slave_fd, stdout=slave_fd, stderr=slave_fd, universal_newlines=True)
+        self.process = subprocess.Popen(['/bin/bash'], preexec_fn=os.setsid,
+                                        stdin=slave_fd, stdout=slave_fd, stderr=slave_fd, universal_newlines=True)
 
         # Start a new thread to read the terminal output
         # threading.Thread is used to create a new thread. target=self.read_output means the thread will run the read_output method.
@@ -95,7 +98,7 @@ class EmbeddedTerminal(customtkinter.CTkFrame):
 
             if output:
                 # If there is any output, process it.
-                
+
                 # Feed the output to the Stream.
                 # The Stream will process the output and update the Screen.
                 self.stream.feed(output)
@@ -133,7 +136,7 @@ class EmbeddedTerminal(customtkinter.CTkFrame):
             # If the process has ended, poll will return the exit code. Otherwise, it will return None.
             if output == '' and self.process.poll() is not None:
                 break
-    
+
     def send_input(self, event):
         # This method is called when the user presses Enter in the Entry widget.
 

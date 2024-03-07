@@ -1,5 +1,5 @@
 import customtkinter
-from frames import OutputFrame, DataTypesFrame, StoringDataFrame, EmbeddedTerminal
+from frames import OutputFrame, DataTypesFrame, StoringDataFrame, EmbeddedShell
 
 # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_appearance_mode("System")
@@ -72,7 +72,7 @@ class App(customtkinter.CTk):
         #endregion
 
         self.main_tabview = MainTabview(master=self)
-        self.main_tabview.grid(row=0, rowspan=3, column=1,columnspan=3, padx=20, pady=20, sticky="nsew")
+        self.main_tabview.grid(row=0, rowspan=3, column=1, columnspan=3, padx=20, pady=20, sticky="nsew")
 
         # Create shell frame
         self.shell_frame = customtkinter.CTkFrame(master=self)
@@ -80,8 +80,8 @@ class App(customtkinter.CTk):
         self.shell_frame.grid_rowconfigure(0, weight=1)
 
         # Create embedded terminal and python shell
-        self.embedded_terminal = EmbeddedTerminal(master=self.shell_frame, ispythonshell=False)
-        self.pythonshell = EmbeddedTerminal(master=self.shell_frame, ispythonshell=True)
+        self.embedded_terminal = EmbeddedShell(master=self.shell_frame, ispythonshell=False)
+        self.pythonshell = EmbeddedShell(master=self.shell_frame, ispythonshell=True)
 
     def append_terminal(self):
         # If the shell frame is not in the grid
@@ -97,7 +97,7 @@ class App(customtkinter.CTk):
             self.pythonshell.grid_forget()
         else:
             self.shell_frame.grid_forget()
-    
+
     def append_pythonshell(self):
         # If the shell frame is not in the grid
         if self.shell_frame.grid_info() == {}:
