@@ -2,3 +2,4 @@ from frames.slide_frame import SlideFrame
 from frames.output_frame import OutputFrame
 from frames.storing_data_frame import StoringDataFrame
 from frames.data_types_frame import DataTypesFrame
+from frames.terminal_frame import EmbeddedTerminal

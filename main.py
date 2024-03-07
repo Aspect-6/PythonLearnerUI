@@ -1,13 +1,11 @@
-import tkinter
-import tkinter
 import customtkinter
-from ctk_widgets.CTk import CTkLabel, CTkButton, CTkOptionMenu
-from frames import OutputFrame, DataTypesFrame, StoringDataFrame
+from frames import OutputFrame, DataTypesFrame, StoringDataFrame, EmbeddedTerminal
 
 # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_appearance_mode("System")
 # Themes: "blue" (standard), "green", "dark-blue"
 customtkinter.set_default_color_theme("blue")
+
 
 class MainTabview(customtkinter.CTkTabview):
     def __init__(self, master, **kwargs):
@@ -33,7 +31,7 @@ class MainTabview(customtkinter.CTkTabview):
 class App(customtkinter.CTk):
     def __init__(self):
         super().__init__()
-    
+
         # Ger user screen dimensions
         self.win_height = customtkinter.CTk.winfo_screenheight(self)
 
@@ -46,6 +44,8 @@ class App(customtkinter.CTk):
         self.grid_columnconfigure((2, 3), weight=1)
         self.grid_rowconfigure(0, weight=1)
 
+        #region: Sidebar
+
         # Create sidebar
         self.sidebar_frame = customtkinter.CTkFrame(master=self)
         self.sidebar_frame.grid(row=0, column=0, rowspan=4, sticky="nsew")
@@ -56,53 +56,62 @@ class App(customtkinter.CTk):
         self.logo_label.grid(row=0, column=0, padx=20, pady=(20, 10))
 
         # Create sidebar buttons
-        self.sidebar_button_1 = CTkButton(
-            master=self.sidebar_frame, gridargs={
-                "row": 1,
-                "column": 0,
-                "padx": 20,
-                "pady": (10, 0)
-            },
-            command=lambda *args: None
-        )
-        self.sidebar_button_2 = CTkButton(
-            master=self.sidebar_frame, gridargs={
-                "row": 2,
-                "column": 0,
-                "padx": 20,
-                "pady": (10, 0)
-            },
-            command=lambda *args: None
-        )
-        self.sidebar_button_3 = CTkButton(
-            master=self.sidebar_frame, gridargs={
-                "row": 3,
-                "column": 0,
-                "padx": 20,
-                "pady": (10, 0)
-            },
-            command=lambda *args: None
-        )
+        self.sidebar_button_1 = customtkinter.CTkButton(master=self.sidebar_frame, text="Terminal Overlay", command=self.append_terminal)
+        self.sidebar_button_2 = customtkinter.CTkButton(master=self.sidebar_frame, text="Python Shell Overlay", command=self.append_pythonshell)
+        self.sidebar_button_3 = customtkinter.CTkButton(master=self.sidebar_frame, text="Button 3", command=lambda *args: None)
+
+        self.sidebar_button_1.grid(row=1, column=0, padx=20, pady=(10, 0))
+        self.sidebar_button_2.grid(row=2, column=0, padx=20, pady=(10, 0))
+        self.sidebar_button_3.grid(row=3, column=0, padx=20, pady=(10, 0))
 
         # Create appearance mode label and option meny
-        self.appearance_mode_label = CTkLabel(
-            master=self.sidebar_frame, gridargs={
-                "row": 5,
-                "column": 0,
-                "padx": 20,
-                "pady": (10, 0)
-            }, text="Appearance Mode:"
-        )
-        self.appearance_mode_optionemenu = CTkOptionMenu(master=self.sidebar_frame, gridargs={
-            "row": 6,
-            "column": 0,
-            "padx": 20,
-            "pady": (10, 20)
-        }, values=["System", "Light", "Dark"], command=self.change_appearance_mode_event
-        )
+        self.appearance_mode_label = customtkinter.CTkLabel(master=self.sidebar_frame, text="Appearance Mode:")
+        self.appearance_mode_label.grid(row=5, column=0, padx=20, pady=(10, 0))
+        self.appearance_mode_optionemenu = customtkinter.CTkOptionMenu(master=self.sidebar_frame, values=["System", "Light", "Dark"], command=self.change_appearance_mode_event)
+        self.appearance_mode_optionemenu.grid(row=6, column=0, padx=20, pady=(10, 20))
+        #endregion
 
         self.main_tabview = MainTabview(master=self)
-        self.main_tabview.grid(row=0, rowspan=3, column=1, columnspan=3, padx=20, pady=20, sticky="nsew")
+        self.main_tabview.grid(row=0, rowspan=3, column=1,columnspan=3, padx=20, pady=20, sticky="nsew")
+
+        # Create shell frame
+        self.shell_frame = customtkinter.CTkFrame(master=self)
+        self.shell_frame.grid_columnconfigure(0, weight=1)
+        self.shell_frame.grid_rowconfigure(0, weight=1)
+
+        # Create embedded terminal and python shell
+        self.embedded_terminal = EmbeddedTerminal(master=self.shell_frame, ispythonshell=False)
+        self.pythonshell = EmbeddedTerminal(master=self.shell_frame, ispythonshell=True)
+
+    def append_terminal(self):
+        # If the shell frame is not in the grid
+        if self.shell_frame.grid_info() == {}:
+            # Add the shell frame to the grid
+            self.shell_frame.grid(row=0, rowspan=3, column=1, columnspan=3, padx=20, pady=20, sticky="nsew")
+            # Add the embedded terminal to the shell frame
+            self.pythonshell.grid_forget()
+            self.embedded_terminal.grid(row=0, column=0, padx=20, pady=20, sticky="nsew")
+        elif self.pythonshell.grid_info() != {}:
+            # If the python shell is in the shell frame, remove it, and add the embedded terminal
+            self.embedded_terminal.grid(row=0, column=0, padx=20, pady=20, sticky="nsew")
+            self.pythonshell.grid_forget()
+        else:
+            self.shell_frame.grid_forget()
+    
+    def append_pythonshell(self):
+        # If the shell frame is not in the grid
+        if self.shell_frame.grid_info() == {}:
+            # Add the shell frame to the grid
+            self.shell_frame.grid(row=0, rowspan=3, column=1, columnspan=3, padx=20, pady=20, sticky="nsew")
+            # Add the embedded terminal to the shell frame
+            self.embedded_terminal.grid_forget()
+            self.pythonshell.grid(row=0, column=0, padx=20, pady=20, sticky="nsew")
+        elif self.embedded_terminal.grid_info() != {}:
+            # If the embedded terminal is in the shell frame, remove it, and add the python shell
+            self.pythonshell.grid(row=0, column=0, padx=20, pady=20, sticky="nsew")
+            self.embedded_terminal.grid_forget()
+        else:
+            self.shell_frame.grid_forget()
 
     def change_appearance_mode_event(self, new_appearance_mode: str):
         customtkinter.set_appearance_mode(new_appearance_mode)
