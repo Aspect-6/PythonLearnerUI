@@ -332,4 +332,4 @@ class OutputFrame(customtkinter.CTkFrame):
         self.problem3_code.grid(row=8, column=0, pady=5, sticky="we")
         self.problem3_subframe.grid(row=9, column=0, pady=(5, 0), sticky="we")
         self.problem3_input.pack(side="left", expand=True, fill="x", padx=(0, 5))
-
+        self.problem3_btn.pack(side="left")
