@@ -271,6 +271,7 @@ class OutputFrame(customtkinter.CTkFrame):
     def create_layout(self):
         # Layout
 
+        #region: View 1
         # View 1 frame layout
         self.view_1_frame.place(relx=0.5, rely=0.5, relheight=0.95, relwidth=0.9, anchor="center")
         self.view_1_title.grid(row=0, column=0, pady=(0, 5), sticky="we")
@@ -278,11 +279,14 @@ class OutputFrame(customtkinter.CTkFrame):
         self.print_explanation.grid(row=2, column=0, pady=(5, 10), sticky="we")
         self.example_title.grid(row=3, column=0, pady=10, sticky="we")
         self.print_examples.grid(row=4, column=0, pady=10, sticky="we")
+        #endregion
 
+        #region: View 2
         # View 2 frame layout
         self.view_2_frame.place(relx=1.5, rely=0.5, relheight=0.95, relwidth=0.9, anchor="center")
         self.view_2_title.grid(row=0, column=0, pady=(0, 5), sticky="we")
 
+        #region: Question 1
         # Question 1 frame layout
         self.q1_frame.grid(row=1, column=0, pady=10, sticky="we")
         self.q1.grid(row=0, column=0, pady=(0, 5), sticky="we")
@@ -290,7 +294,9 @@ class OutputFrame(customtkinter.CTkFrame):
         self.q1_subframe.grid(row=2, column=0, pady=(5, 0), sticky="we")
         self.q1_input.pack(side="left", expand=True, fill="x", padx=(0, 5))
         self.q1_btn.pack(side="left")
+        #endregion
 
+        #region: Question 2
         # Question 2 frame layout
         self.q2_frame.grid(row=2, column=0, pady=(10, 5), sticky="we")
         self.q2.grid(row=0, column=0, pady=5, sticky="we")
@@ -299,7 +305,9 @@ class OutputFrame(customtkinter.CTkFrame):
         self.q2_opt2.grid(row=3, column=0, pady=5, sticky="we")
         self.q2_opt3.grid(row=4, column=0, pady=5, sticky="we")
         self.q2_btn.grid(row=5, column=0, pady=5, sticky="we")
+        #endregion
 
+        #region: Question 3
         # Question 3 frame layout
         self.q3_frame.grid(row=3, column=0, pady=(10, 5), sticky="we")
         self.q3.grid(row=0, column=0, pady=5, sticky="we")
@@ -308,28 +316,40 @@ class OutputFrame(customtkinter.CTkFrame):
         self.q3_check2.grid(row=3, column=0, pady=5, sticky="we")
         self.q3_check3.grid(row=4, column=0, pady=5, sticky="we")
         self.q3_btn.grid(row=5, column=0, pady=5, sticky="we")
+        #endregion
 
+        #endregion
+
+        #region: View 3
         # View 3 frame layout
         self.view_3_frame.place(relx=2.5, rely=0.5, relheight=0.95, relwidth=0.9, anchor="center")
         self.view_3_title.grid(row=0, column=0, pady=(0, 5), sticky="we")
 
-        # Question 1 frame layout
+        #region: Problem 1
+        # Problem 1 frame layout
         self.problem1_title.grid(row=1, column=0, pady=(10, 5), sticky="we")
         self.problem1_code.grid(row=2, column=0, pady=5, sticky="we")
         self.problem1_subframe.grid(row=3, column=0, pady=(5, 0), sticky="we")
         self.problem1_input.pack(side="left", expand=True, fill="x", padx=(0, 5))
         self.problem1_btn.pack(side="left")
+        #endregion
 
-        # Question 2 frame layout
+        #region: Problem 2
+        # Problem 2 frame layout
         self.problem2_title.grid(row=4, column=0, pady=(15, 5), sticky="we")
         self.problem2_code.grid(row=5, column=0, pady=5, sticky="we")
         self.problem2_subframe.grid(row=6, column=0, pady=(5, 0), sticky="we")
         self.problem2_input.pack(side="left", expand=True, fill="x", padx=(0, 5))
         self.problem2_btn.pack(side="left")
+        #endregion
 
-        # Question 3 frame layout
+        #region: Problem 3
+        # Problem 3 frame layout
         self.problem3_title.grid(row=7, column=0, pady=(15, 5), sticky="we")
         self.problem3_code.grid(row=8, column=0, pady=5, sticky="we")
         self.problem3_subframe.grid(row=9, column=0, pady=(5, 0), sticky="we")
         self.problem3_input.pack(side="left", expand=True, fill="x", padx=(0, 5))
         self.problem3_btn.pack(side="left")
+        #endregion
+
+        #endregion
