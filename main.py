@@ -11,21 +11,26 @@ class MainTabview(customtkinter.CTkTabview):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
 
-        # Add tabs
-        self.add("Output & Data Types")
-        self.add("Temporary")
+        # Add tabs and configure grid layout for each tab
+        self.add("Output & Data Types").grid_rowconfigure(0, weight=1)
+        self.add("Variables").grid_rowconfigure(0, weight=1)
 
-        # Configure grid for "Output & Data Types" tab
-        self.tab("Output & Data Types").grid_rowconfigure(0, weight=1)
-        self.tab("Temporary").grid_columnconfigure(0, weight=1)
-
+        # Create output frame
         self.output_frame = OutputFrame(master=self.tab("Output & Data Types"), width=420, fg_color="#373737")
         self.output_frame.grid(row=0, column=0, padx=20, pady=20, sticky="nsw")
         self.output_frame.grid_columnconfigure(2, weight=1)
 
-        self.data_frame = DataTypesFrame(master=self.tab("Output & Data Types"), width=420, fg_color="#373737")
-        self.data_frame.grid(row=0, column=1, padx=20, pady=20, sticky="nsw")
-        self.data_frame.grid_columnconfigure(2, weight=1)
+        # Create storing data frame
+        self.data_types_frame = DataTypesFrame(master=self.tab("Output & Data Types"), width=420, fg_color="#373737")
+        self.data_types_frame.grid(row=0, column=1, padx=20, pady=20, sticky="nsw")
+        self.data_types_frame.grid_columnconfigure(2, weight=1)
+        
+        # Create storing data frame
+        self.storing_data_frame = StoringDataFrame(master=self.tab("Variables"), width=420, fg_color="#373737")
+        self.storing_data_frame.grid(row=0, column=1, padx=20, pady=20, sticky="nsw")
+        self.storing_data_frame.grid_columnconfigure(2, weight=1)
+
+        self.set("Variables")
 
 
 class App(customtkinter.CTk):
