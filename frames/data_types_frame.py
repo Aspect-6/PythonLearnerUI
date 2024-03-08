@@ -121,8 +121,8 @@ class DataTypesFrame(customtkinter.CTkFrame):
             }
         }
 
-        def post_run(return_dict: dict, type: str):
-            type_repls = self.replacements[type]
+        def post_run(return_dict: dict, key: str):
+            type_repls = self.replacements[key]
             for key, val in return_dict.items():
                 if type_repls["lambda"](val) is not None:
                     return_dict[key] = type_repls["lambda"](val)
@@ -157,9 +157,9 @@ class DataTypesFrame(customtkinter.CTkFrame):
             "integer_data_type_explanation_segments": generate_dict(self.colors_dict, "integer_usage"),
             "float_data_type_explanation_segments": generate_dict(self.colors_dict, "float_usage"),
             "string_data_type_explanation_segments": generate_dict(self.colors_dict, "string_usage"),
-            "list_data_type_explanation_segments": generate_dict(self.colors_dict, "list_usage", post_run=post_run, type="list"),
-            "tuple_data_type_explanation_segments": generate_dict(self.colors_dict, "tuple_usage", post_run=post_run, type="tuple"),
-            "dictionary_data_type_explanation_segments": generate_dict(self.colors_dict, "dictionary_usage", post_run=post_run, type="dictionary"),
+            "list_data_type_explanation_segments": generate_dict(self.colors_dict, "list_usage", post_run=post_run, index_key="list"),
+            "tuple_data_type_explanation_segments": generate_dict(self.colors_dict, "tuple_usage", post_run=post_run, index_key="tuple"),
+            "dictionary_data_type_explanation_segments": generate_dict(self.colors_dict, "dictionary_usage", post_run=post_run, index_key="dictionary"),
             # endregion
         }
 
@@ -258,29 +258,23 @@ class DataTypesFrame(customtkinter.CTkFrame):
                    "green": "green", "blue": "#3d59d9"}, self.strings.get("data_types_explanation_segments"))
 
         # Integer data types section
-        self.integer_section = SectionTypeComponent(
-            **self.section_config.get("integer"), type="integer")
+        self.integer_section = SectionTypeComponent(**self.section_config.get("integer"), type="integer")
         # Float data types section
-        self.float_section = SectionTypeComponent(
-            **self.section_config.get("float"), type="float")  # endregion
+        self.float_section = SectionTypeComponent(**self.section_config.get("float"), type="float")  # endregion
         # endregion
 
         # region: View 2
         # String data types section
-        self.string_section = SectionTypeComponent(
-            **self.section_config.get("string"), type="string")
+        self.string_section = SectionTypeComponent(**self.section_config.get("string"), type="string")
         # List data types section
-        self.list_section = SectionTypeComponent(
-            **self.section_config.get("list"), type="list")
+        self.list_section = SectionTypeComponent(**self.section_config.get("list"), type="list")
         # Tuple data types section
-        self.tuple_section = SectionTypeComponent(
-            **self.section_config.get("tuple"), type="tuple")
+        self.tuple_section = SectionTypeComponent(**self.section_config.get("tuple"), type="tuple")
         # endregion
 
         # region: View 3
         # Dictionary data types section
-        self.dictionary_section = SectionTypeComponent(
-            **self.section_config.get("dictionary"), type="dictionary")
+        self.dictionary_section = SectionTypeComponent(**self.section_config.get("dictionary"), type="dictionary")
         # endregion
 
         # region: View 4

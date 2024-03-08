@@ -3,7 +3,7 @@ import re
 from typing import Union
 
 
-def generate_dict(colors_dict: dict, name: str, pre_run=None, post_run=None, type: str = None):
+def generate_dict(colors_dict: dict, name: str, pre_run=None, post_run=None, index_key: str = None):
 
     # Create default color values
     color_counts = {
@@ -44,6 +44,6 @@ def generate_dict(colors_dict: dict, name: str, pre_run=None, post_run=None, typ
     return_dict[non_color_count] = concat_string
 
     if post_run is not None:
-        return_dict = post_run(return_dict, type)
+        return_dict = post_run(return_dict, index_key)
 
     return return_dict
