@@ -41,14 +41,14 @@ class OutputFrame(customtkinter.CTkFrame):
 
         self.strings = {
             # region: View 1
-            "view_1_title": "Rendering output in the terminal",
+            "view_1_title": "Rendering Output in the Terminal",
             "print_showcase": ">>> print(\"Hello World!\")\nHello World!",
             "print_explanation_segments": generate_dict(self.color_dicts, "print_explanation"),
-            "print_examples_title": "Examples of printing different types of values",
+            "print_examples_title": "Examples of Printing Different Values",
             "print_examples": ">>> print(10)\n10\n>>> print(\"Python is awesome!\")\nPython is awesome!\n>>> print(10, \"Python is awesome!\")\n10 Python is awesome!",
             # endregion
             # region: View 2
-            "view_2_title": "Time to practice!",
+            "view_2_title": "Time to Practice!",
             "q1": "1. What is the output of the following code?",
             "q1_code": ">>> print(5)",
             "q2": "2. Which of the following will print the output: \"Python\"?",
@@ -61,7 +61,7 @@ class OutputFrame(customtkinter.CTkFrame):
             "q3_check3": "It shows output to the user",
             # endregion
             # region: View 3
-            "view_3_title": "Now try it yourself!",
+            "view_3_title": "Now try it Yourself!",
             "problem1": "1. Create a print() statement would print following code as its output.",
             "problem1_code": "Hello! 351",
             "problem1_ans": "print(\"Hello!\", 351)",
