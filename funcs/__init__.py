@@ -1,3 +1,3 @@
-from funcs.print_color_coded import print_color_coded
 from funcs.generate_dict import generate_dict
 from funcs.generate_code_block import generate_code_block
+from funcs.add_colors import add_colors

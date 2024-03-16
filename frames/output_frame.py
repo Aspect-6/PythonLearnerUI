@@ -1,9 +1,9 @@
 import tkinter
 import customtkinter
-from custom.textbox import textbox_args, add_colors
+from custom.textbox import textbox_args
 from custom.label import label_args
 from frames import SlideFrame
-from funcs import generate_dict, generate_code_block
+from funcs import generate_dict, generate_code_block, add_colors
 
 
 class OutputFrame(customtkinter.CTkFrame):
