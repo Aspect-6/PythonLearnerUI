@@ -1,5 +1,5 @@
 from pygments import lex
-from pygments.lexers import PythonLexer  # Change this line
+from pygments.lexers import PythonLexer
 import customtkinter
 from custom.textbox import syntax_highlight_colors
 
