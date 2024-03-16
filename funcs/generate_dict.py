@@ -1,10 +1,8 @@
 from collections import OrderedDict
 import re
-from typing import Union
 
 
 def generate_dict(colors_dict: dict, name: str, pre_run=None, post_run=None, index_key: str = None):
-
     # Create default color values
     color_counts = {
         "red": 1,
