@@ -3,7 +3,7 @@ import customtkinter
 from custom.textbox import textbox_args, add_colors
 from custom.label import label_args
 from frames import SlideFrame
-from funcs import generate_dict
+from funcs import generate_dict, generate_code_block
 
 
 class OutputFrame(customtkinter.CTkFrame):
@@ -11,11 +11,9 @@ class OutputFrame(customtkinter.CTkFrame):
         super().__init__(master, **kwargs)
 
         self.color_dicts = {
+            #region: View 1
             "print_showcase": {
-                "str": ">>> print(\"Hello World!\") \nHello World!",
-                "dict": {
-                    "orange": ["Hello", "World!"]
-                }
+                "Token.Literal.String.Double": ["Hello World!"],
             },
             "print_explanation": {
                 "str": "The \"print()\" statement is a built-in function in python that writes a message to the terminal. It takes in any type of value such as an integer, string, list, dictionary, a variable, or even an expression. The syntax of the \"print()\" statement is the word \"print\", followed by \"()\", and then the value that you wish to print between the parentheses. The print statement can also be used to print multiple values. All you have to do is separate each value you wish to print with a comma. The output will be each value separated by a space.",
@@ -24,50 +22,35 @@ class OutputFrame(customtkinter.CTkFrame):
                     "blue": ["built-in", "terminal", "output"]
                 }
             },
+            "print_examples": {
+                "Token.Literal.String.Double": ["Python is awesome!"],
+            },
+            #endregion
+            #region: View 3
+            "problem1_code": {
+                "Token.Literal.String.Double": ["Hello!"],
+            },
+            "problem2_code": {
+                "Token.Literal.String.Double": ["Learning Python"],
+            },
+            "problem3_code": {
+                "Token.Literal.String.Double": ["Year", "Month", "Day"],
+            }
+            #endregion
         }
 
         self.strings = {
             # region: View 1
             "view_1_title": "Rendering output in the terminal",
-            "print_showcase_segments": {
-                1: ">>> print(",
-                "orange_1": "\"Hello World!\"",
-                2: ")\n",
-                "orange_2": "Hello World!"
-            },
+            "print_showcase": ">>> print(\"Hello World!\")\nHello World!",
             "print_explanation_segments": generate_dict(self.color_dicts, "print_explanation"),
             "print_examples_title": "Examples of printing different types of values",
-            "print_examples_segments": {
-                # 1st half of 1st print statement
-                1: ">>> print(",
-                "green_1": "10",                        # Print parameter int
-                2: ")\n",                               # 2nd half of 1st print statement
-                "green_2": "10\n",                      # Output of 1st print statement
-                # 1st half of 2nd print statement
-                3: ">>> print(",
-                "orange_1": "\"Python is awesome!\"",   # Print parameter str
-                4: ")\n",                               # 2nd half of 2nd print statement
-                "orange_2": "Python is awesome!\n",     # Output of 2nd print statement
-                # 1st half of 3rd print statement
-                5: ">>> print(",
-                "green_3": "10",                        # Print first parameter int
-                6: ", ",                                # Print value separator comma
-                "orange_3": "\"Python is awesome!\"",   # Print second parameter str
-                7: ")\n",                               # 2nd half of 3rd print statement
-                # Output of 3rd print statement first parameter int
-                "green_4": "10 ",
-                # Output of 3rd print statement second parameter str
-                "orange_4": "Python is awesome!",
-            },
+            "print_examples": ">>> print(10)\n10\n>>> print(\"Python is awesome!\")\nPython is awesome!\n>>> print(10, \"Python is awesome!\")\n10 Python is awesome!",
             # endregion
             # region: View 2
             "view_2_title": "Time to practice!",
             "q1": "1. What is the output of the following code?",
-            "q1_code_segments": {
-                1: ">>> print(",
-                "green_1": "5",
-                2: ")"
-            },
+            "q1_code": ">>> print(5)",
             "q2": "2. Which of the following will print the output: \"Python\"?",
             "q2_opt1": "print(Python)",
             "q2_opt2": "print(\"Python\")",
@@ -80,29 +63,15 @@ class OutputFrame(customtkinter.CTkFrame):
             # region: View 3
             "view_3_title": "Now try it yourself!",
             "problem1": "1. Create a print() statement would print following code as its output.",
-            "problem1_code_segments": {
-                "orange_1": "Hello! ",
-                "green_1": "351"
-            },
+            "problem1_code": "Hello! 351",
             "problem1_ans": "print(\"Hello!\", 351)",
             "problem2": "2. Create a print() statement would print following code as its output. *Hint: There are multiple correct answers",
-            "problem2_code_segments": {
-                "green_1": "124 ",
-                "orange_1": "Learning Python ",
-                "green_2": "435"
-            },
+            "problem2_code": "124 Learning Python 435",
             "problem2_ans1": "print(124, \"Learning\", \"Python\", 435)",
             "problem2_ans2": "print(124, \"Learning Python\", 435)",
             "problem3": "3. Finally, create a print() statement would print code as its output.",
-            "problem3_code_segments": {
-                "orange_1": "Final ",
-                "green_1": "1 ",
-                "orange_2": "print ",
-                "green_2": "2 ",
-                "orange_3": "statement ",
-                "green_3": "3",
-            },
-            "problem3_ans": "print(\"Final\", 1, \"print\", 2, \"statement\", 3)"
+            "problem3_code": "Year 1975 Month 5 Day 8",
+            "problem3_ans": "print(\"Year\", 1975, \"Month\", 5, \"Day\", 8)"
             # endregion
         }
 
@@ -123,7 +92,7 @@ class OutputFrame(customtkinter.CTkFrame):
 
         # Showcase print() statement
         self.print_showcase = customtkinter.CTkTextbox(master=self.view_1_frame, height=46, wrap="word")
-        add_colors(self.print_showcase, {"orange": "orange"}, self.strings.get("print_showcase_segments"))
+        generate_code_block(code=self.strings.get("print_showcase"), textbox=self.print_showcase, phrases=self.color_dicts.get("print_showcase"))
 
         # Explanation of print() statement
         self.print_explanation = customtkinter.CTkTextbox(master=self.view_1_frame, height=230, **textbox_args)
@@ -133,7 +102,9 @@ class OutputFrame(customtkinter.CTkFrame):
         self.example_title = customtkinter.CTkLabel(master=self.view_1_frame, text=self.strings.get("print_examples_title"), **label_args)
         # Examples of print() statement
         self.print_examples = customtkinter.CTkTextbox(master=self.view_1_frame, height=110, wrap="word")
-        add_colors(self.print_examples, {"green": "green", "orange": "orange"}, self.strings.get("print_examples_segments"))
+        # add_colors(self.print_examples, {"green": "green", "orange": "orange"}, self.strings.get("print_examples_segments"))
+        
+        generate_code_block(code=self.strings.get("print_examples"), textbox=self.print_examples, phrases=self.color_dicts.get("print_examples"))
         # endregion
 
         """
@@ -157,7 +128,7 @@ class OutputFrame(customtkinter.CTkFrame):
         self.q1 = customtkinter.CTkLabel(master=self.q1_frame, text=self.strings.get( "q1"), height=15, font=("Arial", 15), anchor="w")
         self.q1_code = customtkinter.CTkTextbox(master=self.q1_frame, height=15)
         self.q1_code.tag_config("green", foreground="green")
-        add_colors(self.q1_code, {"green": "green"}, self.strings.get("q1_code_segments"))
+        generate_code_block(code=self.strings.get("q1_code"), textbox=self.q1_code, phrases=self.color_dicts.get("print_showcase"))
         self.q1_subframe = customtkinter.CTkFrame(master=self.q1_frame, fg_color="transparent")
         self.q1_subframe.grid_columnconfigure(0, weight=1)
         self.q1_input = customtkinter.CTkEntry(master=self.q1_subframe, placeholder_text="Answer")
@@ -207,7 +178,7 @@ class OutputFrame(customtkinter.CTkFrame):
         self.problem1_code = customtkinter.CTkTextbox(master=self.view_3_frame, height=15)
         self.problem1_code.tag_config("green", foreground="green")
         self.problem1_code.tag_config("orange", foreground="orange")
-        add_colors(self.problem1_code, {"green": "green", "orange": "orange"}, self.strings.get("problem1_code_segments"))
+        generate_code_block(code=self.strings.get("problem1_code"), textbox=self.problem1_code, phrases=self.color_dicts.get("problem1_code"))
         self.problem1_subframe = customtkinter.CTkFrame(master=self.view_3_frame, fg_color="transparent")
         self.q1_subframe.grid_columnconfigure(0, weight=1)
         self.problem1_input = customtkinter.CTkEntry(master=self.problem1_subframe, placeholder_text="Answer")
@@ -220,7 +191,7 @@ class OutputFrame(customtkinter.CTkFrame):
         self.problem2_code = customtkinter.CTkTextbox(master=self.view_3_frame, height=15)
         self.problem2_code.tag_config("green", foreground="green")
         self.problem2_code.tag_config("orange", foreground="orange")
-        add_colors(self.problem2_code, {"green": "green", "orange": "orange"}, self.strings.get("problem2_code_segments"))
+        generate_code_block(code=self.strings.get("problem2_code"), textbox=self.problem2_code, phrases=self.color_dicts.get("problem2_code"))
         self.problem2_subframe = customtkinter.CTkFrame(master=self.view_3_frame, fg_color="transparent")
         self.q1_subframe.grid_columnconfigure(0, weight=1)
         self.problem2_input = customtkinter.CTkEntry(master=self.problem2_subframe, placeholder_text="Answer")
@@ -233,7 +204,7 @@ class OutputFrame(customtkinter.CTkFrame):
         self.problem3_code = customtkinter.CTkTextbox(master=self.view_3_frame, height=15)
         self.problem3_code.tag_config("green", foreground="green")
         self.problem3_code.tag_config("orange", foreground="orange")
-        add_colors(self.problem3_code, {"green": "green", "orange": "orange"}, self.strings.get("problem3_code_segments"))
+        generate_code_block(code=self.strings.get("problem3_code"), textbox=self.problem3_code, phrases=self.color_dicts.get("problem3_code"))
         self.problem3_subframe = customtkinter.CTkFrame(master=self.view_3_frame, fg_color="transparent")
         self.q1_subframe.grid_columnconfigure(0, weight=1)
         self.problem3_input = customtkinter.CTkEntry(master=self.problem3_subframe, placeholder_text="Answer")

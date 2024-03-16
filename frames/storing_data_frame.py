@@ -1,38 +1,18 @@
 import customtkinter
-from custom.textbox import add_colors
-from funcs import print_color_coded, generate_dict
+from custom.textbox import add_colors, textbox_args
+from funcs import generate_dict, generate_code_block
 from frames import SlideFrame
-
 
 class StoringDataFrame(customtkinter.CTkFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
 
-        def data_showcase_pre_run(split_string):
-            for i, word in enumerate(split_string):
-                if "print(" in word:
-                    split_string[i:i+1] = ["print(", "my_var", ")\n"]
-            return split_string
-        def data_showcase_post_run(return_dict: dict):
-            stop = False
-            for key in return_dict:
-                if stop:
-                    return_dict[key] = "my_var"
-                    break
-                if not stop and 'print(' in return_dict[key]:
-                    return_dict[key] = ">>> print("
-                    return_dict[key+1] = ")\n"
-                    stop = True
-                if key == "green_1":
-                    return_dict[key] = "10\n"
-            return return_dict
-        
         def var_explanation_pre_run(split_string):
             for i, word in enumerate(split_string):
                 if 'print(' in word:
                     split_string[i:i+1] = ["\"print(", "my_var", "),\""]
-            return split_string
-        def var_explanation_post_run(return_dict: dict):
+            return split_string        
+        def var_explanation_post_run(return_dict: dict, type: str):
             stop = False
             for key in return_dict:
                 if stop:
@@ -43,7 +23,6 @@ class StoringDataFrame(customtkinter.CTkFrame):
                     stop = True
             return return_dict
         
-
         self.color_dicts = {
             "data_showcase": {
                 "str": ">>> my_var = 10 >>> print(my_var) 10",
@@ -65,7 +44,7 @@ class StoringDataFrame(customtkinter.CTkFrame):
         self.strings = {
             #region: View 1
             "view_1_title": "Storing Data in Python",
-            "data_showcase_segments": generate_dict(self.color_dicts, "data_showcase", data_showcase_pre_run, data_showcase_post_run),
+            "data_showcase": ">>> my_var = 10\n>>> print(my_var)\n10",
             "var_explanation_segments": generate_dict(self.color_dicts, "var_explanation", var_explanation_pre_run, var_explanation_post_run)
             #endregion
         }
@@ -87,10 +66,10 @@ class StoringDataFrame(customtkinter.CTkFrame):
         self.data_showcase = customtkinter.CTkTextbox(master=self.view_1_frame, height=62, wrap="none")
         self.data_showcase.tag_config("green", foreground="green")
         self.data_showcase.tag_config("purple", foreground="#bf00dd")
-        add_colors(self.data_showcase, {"green": "green", "purple": "bf00dd"}, self.strings.get("data_showcase_segments"))
+        generate_code_block(code=self.strings.get("data_showcase"), textbox=self.data_showcase)
         
         # Explanation of variables
-        self.var_explanation = customtkinter.CTkTextbox(master=self.view_1_frame, height=314, fg_color="transparent", wrap="word", font=("Arial", 17))
+        self.var_explanation = customtkinter.CTkTextbox(master=self.view_1_frame, height=284, **textbox_args)
         self.var_explanation.tag_config("green", foreground="green")
         self.var_explanation.tag_config("blue", foreground="#3d59d9")
         self.var_explanation.tag_config("purple", foreground="#bf00dd")
@@ -100,13 +79,10 @@ class StoringDataFrame(customtkinter.CTkFrame):
         #region: View 2
         self.view_2_frame = customtkinter.CTkFrame(master=self, fg_color="transparent")
         self.view_2_frame.grid_columnconfigure(0, weight=1)
-
-        
         #endregion
 
         #region: View 3
         #endregion
-
 
         # Create slide frame
         self.slide_frame = SlideFrame(master=self, fg_color="transparent", views=[self.view_1_frame])
@@ -119,8 +95,10 @@ class StoringDataFrame(customtkinter.CTkFrame):
         self.elem_x: float = 0.5
 
         # Layout
+        #region: View 1
         # View 1 frame layout
         self.view_1_frame.place(relx=self.elem_x, rely=0.5, relheight=0.95, relwidth=0.9, anchor="center")
         self.view_1_title.grid(row=0, column=0, pady=(0, 5), sticky="we")
         self.data_showcase.grid(row=1, column=0, pady=10, sticky="we")
         self.var_explanation.grid(row=2, column=0, pady=10, sticky="we")
+        #endregion

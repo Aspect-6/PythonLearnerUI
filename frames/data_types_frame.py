@@ -1,5 +1,5 @@
 import customtkinter
-from funcs import generate_dict
+from funcs import generate_dict, generate_code_block
 from custom.textbox import textbox_args, add_colors
 from custom.label import label_args
 from frames import SlideFrame
@@ -66,70 +66,7 @@ class DataTypesFrame(customtkinter.CTkFrame):
                 }
             },
             # endregion
-            # region: View 4:
-            "integer_usage": {
-                "str": "361",
-                "dict": {"green": ["361"]}
-            },
-            "float_usage": {
-                "str": "3.14",
-                "dict": {"green": ["3.14"]}
-            },
-            "string_usage": {
-                "str": "\"Hello World!\"",
-                "dict": {"orange": ["\"Hello", "World!\""]}
-            },
-            "list_usage": {
-                "str": "[ \"Learning\", \"Lists\", [ 259 ], 5.738 ]",
-                "dict": {"green": ["259", "5.738"], "orange": ["\"Learning\"", "\"Lists\""]}
-            },
-            "tuple_usage": {
-                "str": "( 1, \"Second\", 2 )",
-                "dict": {"green": ["1", "2"], "orange": ["\"Second\""]}
-            },
-            "dictionary_usage": {
-                "str": "{ \"name\": \"John\", \"age\": 30, \"kids\": [ \"Bob\", \"Sally\" ] }",
-                "dict": {"green": ["30"], "orange": ["\"name\"", "\"John\"", "\"age\"", "\"kids\"", "\"Bob", "Sally\""]}
-            }
-            # endregion
         }
-
-        self.replacements = {
-            "list": {
-                "repl": {
-                    "[ ": "[",
-                    " ]": "]",
-                    "259 ": "259",
-                    "5.738 ": "5.738"
-                },
-                "lambda": lambda val: None
-            },
-            "tuple": {
-                "repl": {
-                    "( ": "(",
-                    "2 ": "2",
-                },
-                "lambda": lambda val: None
-            },
-            "dictionary": {
-                "repl": {
-                    "[ ": "[",
-                    " ]": "]",
-                    "\"Sally\" ": "\"Sally\""
-                },
-                "lambda": lambda val: val + "\n      " if (("Bob" not in val and "," in val) or ("{" in val)) else val + "\n" if ("]" in val) else None
-            }
-        }
-
-        def post_run(return_dict: dict, key: str):
-            type_repls = self.replacements[key]
-            for key, val in return_dict.items():
-                if type_repls["lambda"](val) is not None:
-                    return_dict[key] = type_repls["lambda"](val)
-                if val in type_repls["repl"]:
-                    return_dict[key] = type_repls["repl"][val]
-
-            return return_dict
 
         self.strings = {
             # region: View 1
@@ -154,12 +91,16 @@ class DataTypesFrame(customtkinter.CTkFrame):
             # endregion
             # region: View 4
             "view_4_title": "What do each of these data types look like?",
-            "integer_data_type_explanation_segments": generate_dict(self.colors_dict, "integer_usage"),
-            "float_data_type_explanation_segments": generate_dict(self.colors_dict, "float_usage"),
-            "string_data_type_explanation_segments": generate_dict(self.colors_dict, "string_usage"),
-            "list_data_type_explanation_segments": generate_dict(self.colors_dict, "list_usage", post_run=post_run, index_key="list"),
-            "tuple_data_type_explanation_segments": generate_dict(self.colors_dict, "tuple_usage", post_run=post_run, index_key="tuple"),
-            "dictionary_data_type_explanation_segments": generate_dict(self.colors_dict, "dictionary_usage", post_run=post_run, index_key="dictionary"),
+            "integer_data_type_explanation": "361",
+            "float_data_type_explanation": "3.14",
+            "string_data_type_explanation": "\"Hello World!\"",
+            "list_data_type_explanation": "[\"Learning\", \"Lists\", [259], 5.738]",
+            "tuple_data_type_explanation": "(73, 28, 156)",
+            "dictionary_data_type_explanation": """{
+     \"name\": \"John\",
+     \"age\": 30,
+     \"kids\": [\"Bob\", \"Sally\"]
+}"""
             # endregion
         }
 
@@ -173,45 +114,6 @@ class DataTypesFrame(customtkinter.CTkFrame):
         self.view_4_frame = customtkinter.CTkFrame(master=self, fg_color="transparent")
         self.view_4_frame.grid_columnconfigure(0, weight=1)
         # endregion
-
-        self.type_examples = {
-            "integer": {
-                "master": self.view_4_frame,
-                "strings": self.strings,
-                "colors": {"green": "green"},
-                "textbox_ht": 20,
-            },
-            "float": {
-                "master": self.view_4_frame,
-                "strings": self.strings,
-                "colors": {"green": "green"},
-                "textbox_ht": 20,
-            },
-            "string": {
-                "master": self.view_4_frame,
-                "strings": self.strings,
-                "colors": {"orange": "orange"},
-                "textbox_ht": 20,
-            },
-            "list": {
-                "master": self.view_4_frame,
-                "strings": self.strings,
-                "colors": {"green": "green", "orange": "orange"},
-                "textbox_ht": 20,
-            },
-            "tuple": {
-                "master": self.view_4_frame,
-                "strings": self.strings,
-                "colors": {"green": "green", "orange": "orange"},
-                "textbox_ht": 20,
-            },
-            "dictionary": {
-                "master": self.view_4_frame,
-                "strings": self.strings,
-                "colors": {"green": "green", "orange": "orange"},
-                "textbox_ht": 94,
-            },
-        }
 
         self.section_config = {
             "integer": {
@@ -248,14 +150,11 @@ class DataTypesFrame(customtkinter.CTkFrame):
 
         # region: View 1
         # Create view 1 title label
-        self.view_1_title = customtkinter.CTkLabel(
-            master=self.view_1_frame, text=self.strings.get("view_1_title"), **label_args)
+        self.view_1_title = customtkinter.CTkLabel(master=self.view_1_frame, text=self.strings.get("view_1_title"), **label_args)
 
         # Explanation of data types
-        self.data_types_explanation = customtkinter.CTkTextbox(
-            master=self.view_1_frame, height=124, **textbox_args)
-        add_colors(self.data_types_explanation, {
-                   "green": "green", "blue": "#3d59d9"}, self.strings.get("data_types_explanation_segments"))
+        self.data_types_explanation = customtkinter.CTkTextbox(master=self.view_1_frame, height=124, **textbox_args)
+        add_colors(self.data_types_explanation, {"green": "green", "blue": "#3d59d9"}, self.strings.get("data_types_explanation_segments"))
 
         # Integer data types section
         self.integer_section = SectionTypeComponent(**self.section_config.get("integer"), type="integer")
@@ -278,13 +177,19 @@ class DataTypesFrame(customtkinter.CTkFrame):
         # endregion
 
         # region: View 4
+        # Create view 4 title label
         self.view_4_title = customtkinter.CTkLabel(master=self.view_4_frame, text=self.strings.get("view_4_title"), **label_args)
-        self.integer_example = DataTypeExampleComponent(**self.type_examples.get("integer"), type="integer")
-        self.float_example = DataTypeExampleComponent(**self.type_examples.get("float"), type="float")
-        self.string_example = DataTypeExampleComponent(**self.type_examples.get("string"), type="string")
-        self.list_example = DataTypeExampleComponent(**self.type_examples.get("list"), type="list")
-        self.tuple_example = DataTypeExampleComponent(**self.type_examples.get("tuple"), type="tuple")
-        self.dictionary_example = DataTypeExampleComponent(**self.type_examples.get("dictionary"), type="dictionary")
+        
+        # Create data type example param object
+        self.type_params = { "master": self.view_4_frame, "strings": self.strings }
+
+        # Create data type example components
+        self.integer_example = DataTypeExampleComponent(**self.type_params, textbox_ht=20, type="integer")
+        self.float_example = DataTypeExampleComponent(**self.type_params, textbox_ht=20, type="float")
+        self.string_example = DataTypeExampleComponent(**self.type_params, textbox_ht=20, type="string")
+        self.list_example = DataTypeExampleComponent(**self.type_params, textbox_ht=20, type="list")
+        self.tuple_example = DataTypeExampleComponent(**self.type_params, textbox_ht=20, type="tuple")
+        self.dictionary_example = DataTypeExampleComponent(**self.type_params, textbox_ht=94, type="dictionary")
         # endregion
 
         # Create slide frame
@@ -347,18 +252,19 @@ class SectionTypeComponent(customtkinter.CTkFrame):
         self.type_explanation.grid(row=1, column=0, pady=(5, 0), sticky="we")
 
 class DataTypeExampleComponent(customtkinter.CTkFrame):
-    def __init__(self, master, strings: dict, colors: dict[str, str], type: str, textbox_ht: int, **kwargs):
+    def __init__(self, master, strings: dict, type: str, textbox_ht: int, **kwargs):
         super().__init__(master, **kwargs)
 
         # self.grid_columnconfigure(0, weight=1)
         self.configure(fg_color="transparent")
 
+        self.text = "Dictionaries" if type.capitalize() == "Dictionary" else type.capitalize()
         # Create type label
-        self.data_type = customtkinter.CTkLabel(master=self, text=f"{type.capitalize()} example:", font=("Arial", 18), anchor="w")
+        self.data_type = customtkinter.CTkLabel(master=self, text=self.text, font=("Arial", 18), anchor="w")
 
         # Explanation of type
         self.type_example = customtkinter.CTkTextbox(master=self, height=textbox_ht)
-        add_colors(self.type_example, colors, strings.get(f"{type}_data_type_explanation_segments"))
-
-        self.data_type.pack(side="left", fill="x", expand=True)
-        self.type_example.pack(side="left", fill="x", expand=True)
+        generate_code_block(code=strings.get(f"{type}_data_type_explanation"), textbox=self.type_example)
+        
+        self.data_type.pack(side="top", fill="x", expand=True)
+        self.type_example.pack(side="top", fill="x", expand=True, pady=(0, 10))
