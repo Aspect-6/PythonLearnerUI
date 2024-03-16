@@ -258,7 +258,7 @@ class DataTypeExampleComponent(customtkinter.CTkFrame):
         # self.grid_columnconfigure(0, weight=1)
         self.configure(fg_color="transparent")
 
-        self.text = "Dictionaries" if type.capitalize() == "Dictionary" else type.capitalize()
+        self.text = "Dictionaries" if type.capitalize() == "Dictionary" else f'{type.capitalize()}s:'
         # Create type label
         self.data_type = customtkinter.CTkLabel(master=self, text=self.text, font=("Arial", 18), anchor="w")
 
