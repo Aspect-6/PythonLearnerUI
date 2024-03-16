@@ -1,18 +1,9 @@
 from pygments import lex
 from pygments.lexers import PythonLexer  # Change this line
 import customtkinter
+from custom.textbox import syntax_highlight_colors
 
 def generate_code_block(code: str, textbox: customtkinter.CTkTextbox, phrases: dict = None):
-    syntax_highlight_colors = {
-        'Token.Keyword': '#bf00dd',
-        'Token.Literal.String.Double': 'orange',
-        'Token.Name.Function': 'teal',
-        'Token.Name.Builtin': 'teal',
-        'Token.Name': '#bf00dd',
-        'Token.Literal.Number.Integer': 'green',
-        'Token.Literal.Number.Float': 'green',
-    }
-
     # Use Pygments to split the code into tokens
     tokens = list(lex(code, PythonLexer()))
 
