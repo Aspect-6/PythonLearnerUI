@@ -61,8 +61,8 @@ class App(customtkinter.CTk):
         self.logo_label.grid(row=0, column=0, padx=20, pady=(20, 10))
 
         # Create sidebar buttons
-        self.sidebar_button_1 = customtkinter.CTkButton(master=self.sidebar_frame, text="Terminal Overlay", command=self.append_terminal)
-        self.sidebar_button_2 = customtkinter.CTkButton(master=self.sidebar_frame, text="Python Shell Overlay", command=self.append_pythonshell)
+        self.sidebar_button_1 = customtkinter.CTkButton(master=self.sidebar_frame, text="Terminal", command=self.append_terminal)
+        self.sidebar_button_2 = customtkinter.CTkButton(master=self.sidebar_frame, text="Python Shell", command=self.append_pythonshell)
         self.sidebar_button_3 = customtkinter.CTkButton(master=self.sidebar_frame, text="Button 3", command=lambda *args: None)
 
         self.sidebar_button_1.grid(row=1, column=0, padx=20, pady=(10, 0))
