@@ -1,6 +1,0 @@
-{
-    "watch": ["."],
-    "ext": "py",
-    "exec": "python3 ./main.py",
-    "delay": "1500"
-}
