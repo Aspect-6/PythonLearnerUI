@@ -121,7 +121,7 @@ class OutputFrame(customtkinter.CTkFrame):
         # Create view 2 title label
         self.view_2_title = customtkinter.CTkLabel(master=self.view_2_frame, text=self.strings.get("view_2_title"), **label_args)
 
-        # region: Question 1
+        #region: Question 1
         self.q1_frame = customtkinter.CTkFrame(master=self.view_2_frame, fg_color="transparent")
         self.q1_frame.grid_columnconfigure(0, weight=1)
         self.q1 = customtkinter.CTkLabel(master=self.q1_frame, text=self.strings.get( "q1"), height=15, font=("Arial", 15), anchor="w")
@@ -134,7 +134,7 @@ class OutputFrame(customtkinter.CTkFrame):
         self.q1_btn = customtkinter.CTkButton(master=self.q1_subframe, text="Enter", width=80, command=lambda: self.check_input_answer(["5"], self.q1_input.get(), self.q1_btn, True, self.q1_code, "green"))
         # endregion
 
-        # region: Question 2
+        #region: Question 2
         self.q2_frame = customtkinter.CTkFrame(master=self.view_2_frame, fg_color="transparent")
         self.q2_frame.grid_columnconfigure(0, weight=1)
         self.q2 = customtkinter.CTkLabel(master=self.q2_frame, text=self.strings.get( "q2"), height=15, font=("Arial", 15), anchor="w")
@@ -146,7 +146,7 @@ class OutputFrame(customtkinter.CTkFrame):
         self.q2_btn = customtkinter.CTkButton(master=self.q2_frame, text="Enter")
         # endregion
 
-        # region: Question 3
+        #region: Question 3
         self.q3_frame = customtkinter.CTkFrame(master=self.view_2_frame, fg_color="transparent")
         self.q3_frame.grid_columnconfigure(0, weight=1)
         self.q3 = customtkinter.CTkLabel(master=self.q3_frame, text=self.strings.get("q3"), height=15, font=("Arial", 15), anchor="w")
@@ -157,7 +157,7 @@ class OutputFrame(customtkinter.CTkFrame):
         self.q3_btn = customtkinter.CTkButton(master=self.q3_frame, text="Enter")
         # endregion
 
-        # endregion
+        #endregion
 
         """
         # View 3: Now try it yourself!
@@ -168,7 +168,7 @@ class OutputFrame(customtkinter.CTkFrame):
         # Create view 3 title label
         self.view_3_title = customtkinter.CTkLabel(master=self.view_3_frame, text=self.strings.get("view_3_title"), **label_args)
 
-        # region: Problem 1
+        #region: Problem 1
         self.problem1_title = customtkinter.CTkLabel(master=self.view_3_frame, text=self.strings.get("problem1"), font=("Arial", 15), justify="left", wraplength=383)
         self.problem1_code = customtkinter.CTkTextbox(master=self.view_3_frame, height=15)
         self.problem1_code.tag_config("green", foreground="green")
@@ -181,7 +181,7 @@ class OutputFrame(customtkinter.CTkFrame):
                                                     command=lambda: self.check_input_answer([self.strings.get("problem1_ans")], self.problem1_input.get(), self.problem1_btn, False))
         # endregion
 
-        # region: Problem 2
+        #region: Problem 2
         self.problem2_title = customtkinter.CTkLabel(master=self.view_3_frame, text=self.strings.get("problem2"), font=("Arial", 15), justify="left", wraplength=383)
         self.problem2_code = customtkinter.CTkTextbox(master=self.view_3_frame, height=15)
         self.problem2_code.tag_config("green", foreground="green")
@@ -194,7 +194,7 @@ class OutputFrame(customtkinter.CTkFrame):
                                                     command=lambda: self.check_input_answer([self.strings.get("problem2_ans1"), self.strings.get("problem2_ans2")], self.problem2_input.get(), self.problem2_btn, False))
         # endregion
 
-        # region: Problem 3
+        #region: Problem 3
         self.problem3_title = customtkinter.CTkLabel(master=self.view_3_frame, text=self.strings.get("problem3"), font=("Arial", 15), justify="left", wraplength=383)
         self.problem3_code = customtkinter.CTkTextbox(master=self.view_3_frame, height=15)
         self.problem3_code.tag_config("green", foreground="green")
@@ -207,7 +207,7 @@ class OutputFrame(customtkinter.CTkFrame):
                                                     command=lambda: self.check_input_answer([self.strings.get("problem3_ans")], self.problem3_input.get(), self.problem3_btn, False))
         # endregion
 
-        # endregion
+        #endregion
 
         # Create slide frame
         SlideFrame(master=self, fg_color="transparent", views=[self.view_1_frame, self.view_2_frame, self.view_3_frame])
