@@ -87,13 +87,6 @@ class OutputFrame(customtkinter.CTkFrame):
         self.view_3_frame.grid_columnconfigure(0, weight=1)
         #endregion
 
-        """
-        # View 1: Rendering output in the terminal
-        ----------------------------------------------------------------
-        # Learning about what the print statement does, what it can take
-        # in as arguments, and the correct syntax of the print statement
-        # and its arguments.
-        """
         #region: View 1
         # Create view 1 title label
         self.view_1_title = customtkinter.CTkLabel(master=self.view_1_frame, text=self.strings.get("view_1_title"), **label_args)
@@ -113,13 +106,6 @@ class OutputFrame(customtkinter.CTkFrame):
         generate_code_block(code=self.strings.get("print_examples"), textbox=self.print_examples, phrases=self.color_dicts.get("print_examples"))
         # endregion
 
-        """
-        # View 2: Time to practice!
-        ----------------------------------------------------------------
-        # Determining the output of a print statement, selecting the
-        # correct syntax of a print statement, and determining all true
-        # properties about the print statement.
-        """
         #region: View 2
         # Create view 2 title label
         self.view_2_title = customtkinter.CTkLabel(master=self.view_2_frame, text=self.strings.get("view_2_title"), **label_args)
@@ -182,11 +168,6 @@ class OutputFrame(customtkinter.CTkFrame):
 
         #endregion
 
-        """
-        # View 3: Now try it yourself!
-        ----------------------------------------------------------------
-        # Building print statements to output given lines of text.
-        """
         #region: View 3
         # Create view 3 title label
         self.view_3_title = customtkinter.CTkLabel(master=self.view_3_frame, text=self.strings.get("view_3_title"), **label_args)
