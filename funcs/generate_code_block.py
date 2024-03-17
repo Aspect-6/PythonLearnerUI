@@ -28,7 +28,7 @@ def generate_code_block(code: str, textbox: customtkinter.CTkTextbox, phrases: d
                     index = textbox.search(phrase, start_index, stopindex='end')
                     if index:
                         end_index = f"{index}+{len(phrase)}c"
-                        print(textbox.get(index, end_index))
+                        # print(textbox.get(index, end_index))
                         textbox.delete(index, end_index)
                         textbox.insert(index, phrase, color)
                         start_index = end_index
