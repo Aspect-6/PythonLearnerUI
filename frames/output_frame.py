@@ -1,6 +1,6 @@
 import tkinter
 import customtkinter
-from custom.textbox import textbox_args
+from custom.textbox import textbox_args, COLORS
 from custom.label import label_args
 from frames import SlideFrame
 from funcs import generate_dict, generate_code_block, add_colors
@@ -96,14 +96,12 @@ class OutputFrame(customtkinter.CTkFrame):
 
         # Explanation of print() statement
         self.print_explanation = customtkinter.CTkTextbox(master=self.view_1_frame, height=230, **textbox_args)
-        add_colors(self.print_explanation, {"green": "green", "blue": "#3d59d9"}, self.strings.get("print_explanation_segments"))
+        add_colors(self.print_explanation, {"green": COLORS["GREEN"], "blue": COLORS["BLUE"]}, self.strings.get("print_explanation_segments"))
 
         # Example title
         self.example_title = customtkinter.CTkLabel(master=self.view_1_frame, text=self.strings.get("print_examples_title"), **label_args)
         # Examples of print() statement
         self.print_examples = customtkinter.CTkTextbox(master=self.view_1_frame, height=110, wrap="word")
-        # add_colors(self.print_examples, {"green": "green", "orange": "orange"}, self.strings.get("print_examples_segments"))
-        
         generate_code_block(code=self.strings.get("print_examples"), textbox=self.print_examples, phrases=self.color_dicts.get("print_examples"))
         # endregion
 

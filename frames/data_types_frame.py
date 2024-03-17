@@ -1,6 +1,6 @@
 import customtkinter
 from funcs import generate_dict, generate_code_block, add_colors
-from custom.textbox import textbox_args
+from custom.textbox import textbox_args, COLORS
 from custom.label import label_args
 from frames import SlideFrame
 
@@ -154,7 +154,7 @@ class DataTypesFrame(customtkinter.CTkFrame):
 
         # Explanation of data types
         self.data_types_explanation = customtkinter.CTkTextbox(master=self.view_1_frame, height=124, **textbox_args)
-        add_colors(self.data_types_explanation, {"green": "green", "blue": "#3d59d9"}, self.strings.get("data_types_explanation_segments"))
+        add_colors(self.data_types_explanation, {"green": COLORS["GREEN"], "blue": COLORS["BLUE"]}, self.strings.get("data_types_explanation_segments"))
 
         # Integer data types section
         self.integer_section = SectionTypeComponent(**self.section_config.get("integer"), type="integer")
@@ -246,7 +246,7 @@ class SectionTypeComponent(customtkinter.CTkFrame):
 
         # Explanation of type
         self.type_explanation = customtkinter.CTkTextbox(master=self, height=textbox_ht, **textbox_args)
-        add_colors(self.type_explanation, {"green": "green", "blue": "#3d59d9"}, strings.get(f"{type}_explanation_segments"))
+        add_colors(self.type_explanation, {"green": COLORS["GREEN"], "blue": COLORS["BLUE"]}, strings.get(f"{type}_explanation_segments"))
 
         self.type_title.grid(row=0, column=0, pady=(0, 5), sticky="we")
         self.type_explanation.grid(row=1, column=0, pady=(5, 0), sticky="we")
