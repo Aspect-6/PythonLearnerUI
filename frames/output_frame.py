@@ -68,7 +68,7 @@ class OutputFrame(customtkinter.CTkFrame):
             "problem1": "1. Create a print() statement would print following code as its output.",
             "problem1_code": "Hello! 351",
             "problem1_ans": "print(\"Hello!\", 351)",
-            "problem2": "2. Create a print() statement would print following code as its output. *Hint: There are multiple correct answers",
+            "problem2": "2. Create a print() statement would print following code as its output.",
             "problem2_code": "124 Learning Python 435",
             "problem2_ans1": "print(124, \"Learning\", \"Python\", 435)",
             "problem2_ans2": "print(124, \"Learning Python\", 435)",
