@@ -175,8 +175,6 @@ class OutputFrame(customtkinter.CTkFrame):
         #region: Problem 1
         self.problem1_title = customtkinter.CTkLabel(master=self.view_3_frame, text=self.strings.get("problem1"), font=("Arial", 15), justify="left", wraplength=383)
         self.problem1_code = customtkinter.CTkTextbox(master=self.view_3_frame, height=15)
-        self.problem1_code.tag_config("green", foreground="green")
-        self.problem1_code.tag_config("orange", foreground="orange")
         generate_code_block(code=self.strings.get("problem1_code"), textbox=self.problem1_code, phrases=self.color_dicts.get("problem1_code"))
         self.problem1_subframe = customtkinter.CTkFrame(master=self.view_3_frame, fg_color="transparent")
         self.q1_subframe.grid_columnconfigure(0, weight=1)
@@ -198,8 +196,6 @@ class OutputFrame(customtkinter.CTkFrame):
         #region: Problem 2
         self.problem2_title = customtkinter.CTkLabel(master=self.view_3_frame, text=self.strings.get("problem2"), font=("Arial", 15), justify="left", wraplength=383)
         self.problem2_code = customtkinter.CTkTextbox(master=self.view_3_frame, height=15)
-        self.problem2_code.tag_config("green", foreground="green")
-        self.problem2_code.tag_config("orange", foreground="orange")
         generate_code_block(code=self.strings.get("problem2_code"), textbox=self.problem2_code, phrases=self.color_dicts.get("problem2_code"))
         self.problem2_subframe = customtkinter.CTkFrame(master=self.view_3_frame, fg_color="transparent")
         self.q1_subframe.grid_columnconfigure(0, weight=1)
@@ -220,8 +216,6 @@ class OutputFrame(customtkinter.CTkFrame):
         #region: Problem 3
         self.problem3_title = customtkinter.CTkLabel(master=self.view_3_frame, text=self.strings.get("problem3"), font=("Arial", 15), justify="left", wraplength=383)
         self.problem3_code = customtkinter.CTkTextbox(master=self.view_3_frame, height=15)
-        self.problem3_code.tag_config("green", foreground="green")
-        self.problem3_code.tag_config("orange", foreground="orange")
         generate_code_block(code=self.strings.get("problem3_code"), textbox=self.problem3_code, phrases=self.color_dicts.get("problem3_code"))
         self.problem3_subframe = customtkinter.CTkFrame(master=self.view_3_frame, fg_color="transparent")
         self.q1_subframe.grid_columnconfigure(0, weight=1)
