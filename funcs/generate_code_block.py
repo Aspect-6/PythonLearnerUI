@@ -19,7 +19,7 @@ def generate_code_block(code: str, textbox: customtkinter.CTkTextbox, phrases: d
         else:
             textbox.insert('end', tvalue)
 
-    # If phrases is not None, apply the colors to the phrases
+    # If phrases is not None, apply the colors to the phrases that are not automatically colored by Pygments
     if phrases is not None:
         for color, phrase_list in phrases.items():
             for phrase in phrase_list:
@@ -34,6 +34,7 @@ def generate_code_block(code: str, textbox: customtkinter.CTkTextbox, phrases: d
                         start_index = end_index
                     else:
                         break
-                    
+    
+    # Remove the trailing whitespace and disable the textbox
     textbox.delete("end-1c", "end")
     textbox.configure(state="disabled")
