@@ -1,3 +1,6 @@
 from funcs.generate_dict import generate_dict
 from funcs.generate_code_block import generate_code_block
 from funcs.add_colors import add_colors
+from funcs.check_input_answer import check_input_answer
+from funcs.check_radio_answer import check_radio_answer
+from funcs.check_checkbox_answer import check_checkbox_answer

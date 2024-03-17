@@ -3,7 +3,7 @@ import customtkinter
 from custom.textbox import textbox_args, COLORS
 from custom.label import label_args
 from frames import SlideFrame
-from funcs import generate_dict, generate_code_block, add_colors
+from funcs import generate_dict, generate_code_block, add_colors, check_input_answer, check_radio_answer, check_checkbox_answer
 
 
 class OutputFrame(customtkinter.CTkFrame):
@@ -51,14 +51,17 @@ class OutputFrame(customtkinter.CTkFrame):
             "view_2_title": "Time to Practice!",
             "q1": "1. What is the output of the following code?",
             "q1_code": ">>> print(5)",
+            "q1_ans": "5",
             "q2": "2. Which of the following will print the output: \"Python\"?",
             "q2_opt1": "print(Python)",
             "q2_opt2": "print(\"Python\")",
             "q2_opt3": "print(\"Python)",
+            "q2_ans": 2,
             "q3": "3. Check all that is true about the print() statement.",
             "q3_check1": "It can print strings",
             "q3_check2": "It CANNOT print multiple values",
             "q3_check3": "It shows output to the user",
+            "q3_ans": [1, 0, 1],
             # endregion
             # region: View 3
             "view_3_title": "Now try it Yourself!",
@@ -124,26 +127,46 @@ class OutputFrame(customtkinter.CTkFrame):
         #region: Question 1
         self.q1_frame = customtkinter.CTkFrame(master=self.view_2_frame, fg_color="transparent")
         self.q1_frame.grid_columnconfigure(0, weight=1)
-        self.q1 = customtkinter.CTkLabel(master=self.q1_frame, text=self.strings.get( "q1"), height=15, font=("Arial", 15), anchor="w")
+        self.q1 = customtkinter.CTkLabel(master=self.q1_frame, text=self.strings.get("q1"), height=15, font=("Arial", 15), anchor="w")
         self.q1_code = customtkinter.CTkTextbox(master=self.q1_frame, height=15)
-        self.q1_code.tag_config("green", foreground="green")
         generate_code_block(code=self.strings.get("q1_code"), textbox=self.q1_code, phrases=self.color_dicts.get("print_showcase"))
         self.q1_subframe = customtkinter.CTkFrame(master=self.q1_frame, fg_color="transparent")
         self.q1_subframe.grid_columnconfigure(0, weight=1)
         self.q1_input = customtkinter.CTkEntry(master=self.q1_subframe, placeholder_text="Answer")
-        self.q1_btn = customtkinter.CTkButton(master=self.q1_subframe, text="Enter", width=80, command=lambda: self.check_input_answer(["5"], self.q1_input.get(), self.q1_btn, True, self.q1_code, "green"))
+        self.q1_btn = customtkinter.CTkButton(
+            master=self.q1_subframe,
+            text="Enter", width=80,
+            command=lambda: check_input_answer(
+                correct_answers=[self.strings.get("q1_ans")],
+                input=self.q1_input.get(),
+                btn=self.q1_btn,
+                update_textbox=True,
+                new_ht=46,
+                textbox=self.q1_code,
+                tag="Token.Literal.Number.Integer"
+            )
+        )
         # endregion
 
         #region: Question 2
         self.q2_frame = customtkinter.CTkFrame(master=self.view_2_frame, fg_color="transparent")
         self.q2_frame.grid_columnconfigure(0, weight=1)
-        self.q2 = customtkinter.CTkLabel(master=self.q2_frame, text=self.strings.get( "q2"), height=15, font=("Arial", 15), anchor="w")
+        self.q2 = customtkinter.CTkLabel(master=self.q2_frame, text=self.strings.get("q2"), height=15, font=("Arial", 15), anchor="w")
         self.q2_radio_frame = customtkinter.CTkFrame(master=self.q2_frame, fg_color="transparent")
-        self.q2_var = tkinter.IntVar(value=0)
+        self.q2_var = customtkinter.IntVar(value=0)
         self.q2_opt1 = customtkinter.CTkRadioButton(master=self.q2_radio_frame, text=self.strings.get("q2_opt1"), variable=self.q2_var, value=1)
         self.q2_opt2 = customtkinter.CTkRadioButton(self.q2_radio_frame, text=self.strings.get("q2_opt2"), variable=self.q2_var, value=2)
         self.q2_opt3 = customtkinter.CTkRadioButton(master=self.q2_radio_frame, text=self.strings.get("q2_opt3"), variable=self.q2_var, value=3)
-        self.q2_btn = customtkinter.CTkButton(master=self.q2_frame, text="Enter")
+        self.q2_btn = customtkinter.CTkButton(
+            master=self.q2_frame,
+            text="Enter",
+            command=lambda: check_radio_answer(
+                radio_buttons=[self.q2_opt1, self.q2_opt2, self.q2_opt3],
+                q_btn=self.q2_btn,
+                q_var=self.q2_var,
+                correct_answer=self.strings.get("q2_ans")
+            )
+        )
         # endregion
 
         #region: Question 3
@@ -154,7 +177,7 @@ class OutputFrame(customtkinter.CTkFrame):
         self.q3_check1 = customtkinter.CTkCheckBox(master=self.q3_check_frame, text=self.strings.get("q3_check1"))
         self.q3_check2 = customtkinter.CTkCheckBox(master=self.q3_check_frame, text=self.strings.get("q3_check2"))
         self.q3_check3 = customtkinter.CTkCheckBox(master=self.q3_check_frame, text=self.strings.get("q3_check3"))
-        self.q3_btn = customtkinter.CTkButton(master=self.q3_frame, text="Enter")
+        self.q3_btn = customtkinter.CTkButton(master=self.q3_frame, text="Enter", command=self.check_checkbox_answer)
         # endregion
 
         #endregion
@@ -177,8 +200,18 @@ class OutputFrame(customtkinter.CTkFrame):
         self.problem1_subframe = customtkinter.CTkFrame(master=self.view_3_frame, fg_color="transparent")
         self.q1_subframe.grid_columnconfigure(0, weight=1)
         self.problem1_input = customtkinter.CTkEntry(master=self.problem1_subframe, placeholder_text="Answer")
-        self.problem1_btn = customtkinter.CTkButton(master=self.problem1_subframe, text="Enter", width=80,
-                                                    command=lambda: self.check_input_answer([self.strings.get("problem1_ans")], self.problem1_input.get(), self.problem1_btn, False))
+        self.problem1_btn = customtkinter.CTkButton(
+            master=self.problem1_subframe,
+            text="Enter",
+            width=80,
+            command=lambda: check_input_answer(
+                correct_answers=[self.strings.get("problem1_ans")],
+                input=self.problem1_input.get(),
+                btn=self.problem1_btn,
+                update_textbox=False
+                
+            )
+        )
         # endregion
 
         #region: Problem 2
@@ -190,8 +223,17 @@ class OutputFrame(customtkinter.CTkFrame):
         self.problem2_subframe = customtkinter.CTkFrame(master=self.view_3_frame, fg_color="transparent")
         self.q1_subframe.grid_columnconfigure(0, weight=1)
         self.problem2_input = customtkinter.CTkEntry(master=self.problem2_subframe, placeholder_text="Answer")
-        self.problem2_btn = customtkinter.CTkButton(master=self.problem2_subframe, text="Enter", width=80,
-                                                    command=lambda: self.check_input_answer([self.strings.get("problem2_ans1"), self.strings.get("problem2_ans2")], self.problem2_input.get(), self.problem2_btn, False))
+        self.problem2_btn = customtkinter.CTkButton(
+            master=self.problem2_subframe,
+            text="Enter",
+            width=80,
+            command=lambda: check_input_answer(
+                correct_answers=[self.strings.get("problem2_ans1"), self.strings.get("problem2_ans2")],
+                input=self.problem2_input.get(),
+                btn=self.problem2_btn,
+                update_textbox=False
+            )
+        )
         # endregion
 
         #region: Problem 3
@@ -203,8 +245,17 @@ class OutputFrame(customtkinter.CTkFrame):
         self.problem3_subframe = customtkinter.CTkFrame(master=self.view_3_frame, fg_color="transparent")
         self.q1_subframe.grid_columnconfigure(0, weight=1)
         self.problem3_input = customtkinter.CTkEntry(master=self.problem3_subframe, placeholder_text="Answer")
-        self.problem3_btn = customtkinter.CTkButton(master=self.problem3_subframe, text="Enter", width=80,
-                                                    command=lambda: self.check_input_answer([self.strings.get("problem3_ans")], self.problem3_input.get(), self.problem3_btn, False))
+        self.problem3_btn = customtkinter.CTkButton(
+            master=self.problem3_subframe,
+            text="Enter",
+            width=80,
+            command=lambda: check_input_answer(
+                correct_answers=[self.strings.get("problem3_ans")],
+                input=self.problem3_input.get(),
+                btn=self.problem3_btn,
+                update_textbox=False
+            )
+        )
         # endregion
 
         #endregion
@@ -215,24 +266,13 @@ class OutputFrame(customtkinter.CTkFrame):
         # Create layout
         self.create_layout()
 
-    def check_input_answer(self, correct_answers: list[str], input: str, btn: customtkinter.CTkButton, updateTextbox: bool, textbox: customtkinter.CTkTextbox = None, color: str = ""):
-        if isinstance(correct_answers, list):
-            for correct in correct_answers:
-                if input == correct:
-                    if textbox is not None:
-                        if updateTextbox is True:
-                            textbox.configure(state="normal")
-                            textbox.insert("end", f"\n{correct}", color)
-                            textbox.configure(state="disabled", height=46)
-                    btn.configure(state="disabled")
-        elif input == correct_answers:
-            if textbox is not None:
-                textbox.configure(state="normal")
-                textbox.insert("end", f"\n{correct_answers}", color)
-                textbox.configure(state="disabled", height=46)
-            btn.configure(state="disabled")
-
-    def check_radio_answer(self): pass
+    def check_checkbox_answer(self):
+        self.checkboxes = [self.q3_check1, self.q3_check2, self.q3_check3]
+        if [checkbox.get() for checkbox in self.checkboxes] == self.strings.get("q3_ans"):
+            self.q3_btn.configure(text="Correct! ✅", state="disabled")
+            [checkbox.configure(state="disabled") for checkbox in self.checkboxes]
+        else:
+            self.q3_btn.configure(text="Incorrect ❌")
 
     def create_layout(self):
         # Layout
@@ -264,7 +304,7 @@ class OutputFrame(customtkinter.CTkFrame):
 
         #region: Question 2
         # Question 2 frame layout
-        self.q2_frame.grid(row=2, column=0, pady=(10, 5), sticky="we")
+        self.q2_frame.grid(row=2, column=0, pady=(0, 5), sticky="we")
         self.q2.grid(row=0, column=0, pady=5, sticky="we")
         self.q2_radio_frame.grid(row=1, column=0, pady=5, sticky="we")
         self.q2_opt1.grid(row=2, column=0, pady=5, sticky="we")
@@ -275,7 +315,7 @@ class OutputFrame(customtkinter.CTkFrame):
 
         #region: Question 3
         # Question 3 frame layout
-        self.q3_frame.grid(row=3, column=0, pady=(10, 5), sticky="we")
+        self.q3_frame.grid(row=3, column=0, pady=(0, 5), sticky="we")
         self.q3.grid(row=0, column=0, pady=5, sticky="we")
         self.q3_check_frame.grid(row=1, column=0, pady=5, sticky="we")
         self.q3_check1.grid(row=2, column=0, pady=5, sticky="we")
