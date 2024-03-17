@@ -75,6 +75,15 @@ class OutputFrame(customtkinter.CTkFrame):
             # endregion
         }
 
+        #region: Declare frames
+        self.view_1_frame = customtkinter.CTkFrame(master=self, fg_color="transparent")
+        self.view_1_frame.grid_columnconfigure(0, weight=1)
+        self.view_2_frame = customtkinter.CTkFrame(master=self, fg_color="transparent")
+        self.view_2_frame.grid_columnconfigure(0, weight=1)
+        self.view_3_frame = customtkinter.CTkFrame(master=self, fg_color="transparent")
+        self.view_3_frame.grid_columnconfigure(0, weight=1)
+        #endregion
+
         """
         # View 1: Rendering output in the terminal
         ----------------------------------------------------------------
@@ -82,11 +91,7 @@ class OutputFrame(customtkinter.CTkFrame):
         # in as arguments, and the correct syntax of the print statement
         # and its arguments.
         """
-        # region: View 1
-        # View 1 frame
-        self.view_1_frame = customtkinter.CTkFrame(master=self, fg_color="transparent")
-        self.view_1_frame.grid_columnconfigure(0, weight=1)
-
+        #region: View 1
         # Create view 1 title label
         self.view_1_title = customtkinter.CTkLabel(master=self.view_1_frame, text=self.strings.get("view_1_title"), **label_args)
 
@@ -112,11 +117,7 @@ class OutputFrame(customtkinter.CTkFrame):
         # correct syntax of a print statement, and determining all true
         # properties about the print statement.
         """
-        # region: View 2
-        # View 2 frame
-        self.view_2_frame = customtkinter.CTkFrame(master=self, fg_color="transparent")
-        self.view_2_frame.grid_columnconfigure(0, weight=1)
-
+        #region: View 2
         # Create view 2 title label
         self.view_2_title = customtkinter.CTkLabel(master=self.view_2_frame, text=self.strings.get("view_2_title"), **label_args)
 
@@ -163,11 +164,7 @@ class OutputFrame(customtkinter.CTkFrame):
         ----------------------------------------------------------------
         # Building print statements to output given lines of text.
         """
-        # region: View 3
-        # View 3 frame
-        self.view_3_frame = customtkinter.CTkFrame(master=self, fg_color="transparent")
-        self.view_3_frame.grid_columnconfigure(0, weight=1)
-
+        #region: View 3
         # Create view 3 title label
         self.view_3_title = customtkinter.CTkLabel(master=self.view_3_frame, text=self.strings.get("view_3_title"), **label_args)
 
