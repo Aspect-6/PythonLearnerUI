@@ -2,7 +2,7 @@ from collections import OrderedDict
 import re
 
 
-def generate_dict(colors_dict: dict, name: str, pre_run=None, post_run=None, index_key: str = None):
+def generate_dict(colors_dict: dict, name: str, pre_run=None, post_run=None):
     color_counts = {
         "red": 1,
         "orange": 1,
@@ -43,6 +43,6 @@ def generate_dict(colors_dict: dict, name: str, pre_run=None, post_run=None, ind
     return_dict[non_color_count] = concat_string
 
     if post_run is not None:
-        return_dict = post_run(return_dict, index_key)
+        return_dict = post_run(return_dict)
 
     return return_dict
