@@ -3,6 +3,7 @@ from termcolor import colored
 from custom.debug_patterns import text, label_pattern, filename_pattern, correct_answers_pattern, user_input_pattern, question_status_pattern
 
 def check_radio_answer(
+    filename: str,
     radio_buttons: list[customtkinter.CTkRadioButton],
     q_btn: customtkinter.CTkButton,
     q_var: customtkinter.IntVar,
@@ -10,7 +11,7 @@ def check_radio_answer(
 ):
     # Debugging
     FILENAME_LABEL =        colored(text["FILENAME_LABEL"], **label_pattern)
-    FILENAME =              colored("check_radio_answer.py", **filename_pattern)
+    FILENAME =              colored(filename, **filename_pattern)
     CORRECT_ANSWERS_LABEL = colored(text["CORRECT_ANSWERS_LABEL"], **label_pattern)
     CORRECT_ANSWERS =       colored(correct_answer, **correct_answers_pattern)
     USER_INPUT_LABEL =      colored(text["USER_INPUT_LABEL"], **label_pattern)

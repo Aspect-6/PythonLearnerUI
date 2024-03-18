@@ -146,6 +146,7 @@ class StoringDataFrame(customtkinter.CTkFrame):
             master=self.q1_subframe,
             text="Enter", width=80,
             command=lambda: check_input_answer(
+                filename="storing_data_frame.py",
                 correct_answers=[self.strings.get("q1_ans")],
                 input=self.q1_input.get(),
                 btn=self.q1_btn,
@@ -170,6 +171,7 @@ class StoringDataFrame(customtkinter.CTkFrame):
             master=self.q2_frame,
             text="Enter",
             command=lambda: check_radio_answer(
+                filename="storing_data_frame.py",
                 radio_buttons=[self.q2_opt1, self.q2_opt2, self.q2_opt3],
                 q_btn=self.q2_btn,
                 q_var=self.q2_var,
@@ -190,6 +192,7 @@ class StoringDataFrame(customtkinter.CTkFrame):
             master=self.q3_frame,
             text="Enter",
             command=lambda: check_checkbox_answer(
+                filename="storing_data_frame.py",
                 checkboxes=[self.q3_check1, self.q3_check2, self.q3_check3],
                 q_btn=self.q3_btn,
                 correct_answer=self.strings.get("q3_ans")
@@ -217,6 +220,7 @@ class StoringDataFrame(customtkinter.CTkFrame):
             text="Enter",
             width=80,
             command=lambda: check_input_answer(
+                filename="storing_data_frame.py",
                 correct_answers=[self.strings.get("problem1_ans")],
                 input=self.problem1_input.get(),
                 btn=self.problem1_btn,
@@ -240,6 +244,7 @@ class StoringDataFrame(customtkinter.CTkFrame):
             text="Enter",
             width=80,
             command=lambda: check_input_answer(
+                filename="storing_data_frame.py",
                 correct_answers=[self.strings.get("problem2_ans")],
                 input=self.problem2_input.get(),
                 btn=self.problem2_btn,
@@ -262,6 +267,7 @@ class StoringDataFrame(customtkinter.CTkFrame):
             text="Enter",
             width=80,
             command=lambda: check_input_answer(
+                filename="storing_data_frame.py",
                 correct_answers=[self.strings.get("problem3_ans")],
                 input=self.problem3_input.get(),
                 btn=self.problem3_btn,

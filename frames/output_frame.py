@@ -123,6 +123,7 @@ class OutputFrame(customtkinter.CTkFrame):
             master=self.q1_subframe,
             text="Enter", width=80,
             command=lambda: check_input_answer(
+                filename="output_frame.py",
                 correct_answers=[self.strings.get("q1_ans")],
                 input=self.q1_input.get(),
                 btn=self.q1_btn,
@@ -147,6 +148,7 @@ class OutputFrame(customtkinter.CTkFrame):
             master=self.q2_frame,
             text="Enter",
             command=lambda: check_radio_answer(
+                filename="output_frame.py",
                 radio_buttons=[self.q2_opt1, self.q2_opt2, self.q2_opt3],
                 q_btn=self.q2_btn,
                 q_var=self.q2_var,
@@ -163,7 +165,16 @@ class OutputFrame(customtkinter.CTkFrame):
         self.q3_check1 = customtkinter.CTkCheckBox(master=self.q3_check_frame, text=self.strings.get("q3_check1"))
         self.q3_check2 = customtkinter.CTkCheckBox(master=self.q3_check_frame, text=self.strings.get("q3_check2"))
         self.q3_check3 = customtkinter.CTkCheckBox(master=self.q3_check_frame, text=self.strings.get("q3_check3"))
-        self.q3_btn = customtkinter.CTkButton(master=self.q3_frame, text="Enter", command=self.check_checkbox_answer)
+        self.q3_btn = customtkinter.CTkButton(
+            master=self.q3_frame,
+            text="Enter",
+            command=lambda: check_checkbox_answer(
+                filename="output_frame.py",
+                checkboxes=[self.q3_check1, self.q3_check2, self.q3_check3],
+                q_btn=self.q3_btn,
+                correct_answer=self.strings.get("q3_ans")
+            )
+        )
         # endregion
 
         #endregion
@@ -184,6 +195,7 @@ class OutputFrame(customtkinter.CTkFrame):
             text="Enter",
             width=80,
             command=lambda: check_input_answer(
+                filename="output_frame.py",
                 correct_answers=[self.strings.get("problem1_ans")],
                 input=self.problem1_input.get(),
                 btn=self.problem1_btn,
@@ -205,6 +217,7 @@ class OutputFrame(customtkinter.CTkFrame):
             text="Enter",
             width=80,
             command=lambda: check_input_answer(
+                filename="output_frame.py",
                 correct_answers=[self.strings.get("problem2_ans1"), self.strings.get("problem2_ans2")],
                 input=self.problem2_input.get(),
                 btn=self.problem2_btn,
@@ -225,6 +238,7 @@ class OutputFrame(customtkinter.CTkFrame):
             text="Enter",
             width=80,
             command=lambda: check_input_answer(
+                filename="output_frame.py",
                 correct_answers=[self.strings.get("problem3_ans")],
                 input=self.problem3_input.get(),
                 btn=self.problem3_btn,
@@ -240,14 +254,6 @@ class OutputFrame(customtkinter.CTkFrame):
 
         # Create layout
         self.create_layout()
-
-    def check_checkbox_answer(self):
-        self.checkboxes = [self.q3_check1, self.q3_check2, self.q3_check3]
-        if [checkbox.get() for checkbox in self.checkboxes] == self.strings.get("q3_ans"):
-            self.q3_btn.configure(text="Correct! ✅", state="disabled")
-            [checkbox.configure(state="disabled") for checkbox in self.checkboxes]
-        else:
-            self.q3_btn.configure(text="Incorrect ❌")
 
     def create_layout(self):
         # Layout

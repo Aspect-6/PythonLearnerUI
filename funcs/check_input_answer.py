@@ -3,17 +3,18 @@ from termcolor import colored
 from custom.debug_patterns import text, label_pattern, filename_pattern, correct_answers_pattern, user_input_pattern, question_status_pattern
 
 def check_input_answer(
+    filename: str,
     correct_answers: list[str] | str,
     input: str,
     btn: customtkinter.CTkButton,
     update_textbox: bool,
     new_ht: int = None,
     textbox: customtkinter.CTkTextbox = None,
-    tag: str = ""
+    tag: str = "",
 ):
     # Debugging
     FILENAME_LABEL =        colored(text["FILENAME_LABEL"], **label_pattern)
-    FILENAME =              colored("check_input_answer.py", **filename_pattern)
+    FILENAME =              colored(filename, **filename_pattern)
     CORRECT_ANSWERS_LABEL = colored(text["CORRECT_ANSWERS_LABEL"], **label_pattern)
     CORRECT_ANSWERS =       colored(correct_answers, **correct_answers_pattern)
     USER_INPUT_LABEL =      colored(text["USER_INPUT_LABEL"], **label_pattern)

@@ -22,7 +22,7 @@ correct_answers_pattern = {
 user_input_pattern = {
     "color": "blue",
     "on_color": None,
-    "attrs": ["bold", "underline"]
+    "attrs": ["bold"]
 }
 question_status_pattern = {
     "on_color": None,
