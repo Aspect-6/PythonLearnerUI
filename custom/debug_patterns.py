@@ -17,7 +17,7 @@ filename_pattern = {
 correct_answers_pattern = {
     "color": "green",
     "on_color": None,
-    "attrs": ["bold", "underline"]
+    "attrs": ["bold"]
 }
 user_input_pattern = {
     "color": "blue",
