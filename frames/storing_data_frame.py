@@ -3,7 +3,7 @@ from custom.textbox import textbox_args, COLORS
 from custom.label import label_args
 from funcs import generate_dict, generate_code_block, add_colors, check_input_answer, check_radio_answer, check_checkbox_answer
 from frames import SlideFrame
-customtkinter.IntVar
+
 class StoringDataFrame(customtkinter.CTkFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
