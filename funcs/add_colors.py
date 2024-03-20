@@ -4,11 +4,11 @@ def add_colors(textbox: customtkinter.CTkTextbox, colors: dict[str, str], segmen
     for key in colors:
         textbox.tag_config(key, foreground=colors[key])
 
-    for key in segments:
-        if not isinstance(key, int):
-            for color in list(colors.keys()):
-                if color in key:
-                    textbox.insert("end", segments.get(key), color)
+    for segment in segments:
+        if not isinstance(segment, int):
+            for key in colors:
+                if key in segment:
+                    textbox.insert("end", segments.get(segment), key)
         else:
-            textbox.insert("end", segments.get(key))
+            textbox.insert("end", segments.get(segment))
     textbox.configure(state="disabled")
