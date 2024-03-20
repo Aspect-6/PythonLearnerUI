@@ -1,6 +1,6 @@
 import customtkinter
 from termcolor import colored
-from custom.debug_patterns import text, label_pattern, filename_pattern, correct_answers_pattern, user_input_pattern, question_status_pattern
+from custom.debug_patterns import *
 
 def check_radio_answer(
     filename: str,
@@ -10,6 +10,7 @@ def check_radio_answer(
     correct_answer: int
 ):
     # Debugging
+    LOG_TITLE =             colored(text["LOG_TITLE"], **log_title_pattern)
     FILENAME_LABEL =        colored(text["FILENAME_LABEL"], **label_pattern)
     FILENAME =              colored(filename, **filename_pattern)
     CORRECT_ANSWERS_LABEL = colored(text["CORRECT_ANSWERS_LABEL"], **label_pattern)
@@ -19,7 +20,7 @@ def check_radio_answer(
     QUESTION_STATUS_LABEL = colored(text["QUESTION_STATUS_LABEL"], **label_pattern)
     is_correct =            q_var.get() == correct_answer
     QUESTION_STATUS =       colored("Correct" if is_correct else "Incorrect", "green" if is_correct else "red", **question_status_pattern)
-    print(f"{FILENAME_LABEL}: {FILENAME} | {CORRECT_ANSWERS_LABEL}: {CORRECT_ANSWERS}, {USER_INPUT_LABEL}: {USER_INPUT}, {QUESTION_STATUS_LABEL}: {QUESTION_STATUS}")
+    print(f"{LOG_TITLE}  |  {FILENAME_LABEL}: {FILENAME} | {CORRECT_ANSWERS_LABEL}: {CORRECT_ANSWERS}, {USER_INPUT_LABEL}: {USER_INPUT}, {QUESTION_STATUS_LABEL}: {QUESTION_STATUS}")
 
 
     if q_var.get() == correct_answer:

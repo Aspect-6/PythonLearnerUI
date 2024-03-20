@@ -1,9 +1,15 @@
+log_title_pattern = {
+    "color": "black",
+    "on_color": "on_yellow",
+    "attrs": ["bold"]
+}
 label_pattern = {
     "color": "black",
     "on_color": "on_magenta",
     "attrs": ["bold", "underline"]
 }
 text = {
+    "LOG_TITLE": "Quiz Question",
     "FILENAME_LABEL": "Filename",
     "CORRECT_ANSWERS_LABEL": "Correct Answers(s)",
     "USER_INPUT_LABEL": "User Input",
