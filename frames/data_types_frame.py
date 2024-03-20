@@ -58,6 +58,13 @@ class DataTypesFrame(customtkinter.CTkFrame):
             },
             # endregion
             # region: View 3:
+            "set": {
+                "str": "Sets are used to store unique items. They can store any type of value, such as integers, floats, strings, lists, tuples, variables, or even other sets. Sets are used to represent collections of unique items, such as the unique words in a paragraph, the unique colors in an image, or the unique items in a shopping cart. You can also perform set operations, such as union, intersection, and difference, on sets, which give the unique items in two sets, the common items in two sets, and the items that are in one set but not the other.",
+                "dict": {
+                    "green": ["integers", "floats", "strings", "lists", "tuples", "variables", "items", "unique", "collections", "words", "colors", "image", "shopping", "cart", "union", "intersection", "difference"],
+                    "blue": ["set"]
+                }
+            },
             "dictionaries": {
                 "str": "Dictionaries are used to store key-value pairs. The key can be an integer or string, and the value behind it can store any type of value, such as integers, floats, strings, lists, tuples, variables, or even other dictionaries. Dictionaries are used to represent collections of items that are associated with a unique key, such as the properties of an object, the attributes of a person, or the details of a product.",
                 "dict": {
@@ -86,16 +93,18 @@ class DataTypesFrame(customtkinter.CTkFrame):
             "tuple_explanation_segments": generate_dict(self.colors_dict, "tuples"),
             # endregion
             # region: View 3
+            "set_title": "Set data types in Python",
+            "set_explanation_segments": generate_dict(self.colors_dict, "set"),
             "dictionary_title": "Dictionary data types in Python",
             "dictionary_explanation_segments": generate_dict(self.colors_dict, "dictionaries"),
             # endregion
             # region: View 4
             "view_4_title": "What do each of these data types look like?",
-            "integer_data_type_explanation": "361",
-            "float_data_type_explanation": "3.14",
+            "number_data_type_explanation": "361 3.14159",
             "string_data_type_explanation": "\"Hello World!\"",
             "list_data_type_explanation": "[\"Learning\", \"Lists\", [259], 5.738]",
             "tuple_data_type_explanation": "(73, 28, 156)",
+            "set_data_type_explanation": "{1, 2, 3, 4, 5}",
             "dictionary_data_type_explanation": """{
      \"name\": \"John\",
      \"age\": 30,
@@ -141,6 +150,11 @@ class DataTypesFrame(customtkinter.CTkFrame):
                 "strings": self.strings,
                 "textbox_ht": 122
             },
+            "set": {
+                "master": self.view_3_frame,
+                "strings": self.strings,
+                "textbox_ht": 212
+            },
             "dictionary": {
                 "master": self.view_3_frame,
                 "strings": self.strings,
@@ -173,6 +187,7 @@ class DataTypesFrame(customtkinter.CTkFrame):
 
         # region: View 3
         # Dictionary data types section
+        self.set_section = SectionTypeComponent(**self.section_config.get("set"), type="set")
         self.dictionary_section = SectionTypeComponent(**self.section_config.get("dictionary"), type="dictionary")
         # endregion
 
@@ -184,12 +199,12 @@ class DataTypesFrame(customtkinter.CTkFrame):
         self.type_params = { "master": self.view_4_frame, "strings": self.strings }
 
         # Create data type example components
-        self.integer_example = DataTypeExampleComponent(**self.type_params, textbox_ht=20, type="integer")
-        self.float_example = DataTypeExampleComponent(**self.type_params, textbox_ht=20, type="float")
-        self.string_example = DataTypeExampleComponent(**self.type_params, textbox_ht=20, type="string")
-        self.list_example = DataTypeExampleComponent(**self.type_params, textbox_ht=20, type="list")
-        self.tuple_example = DataTypeExampleComponent(**self.type_params, textbox_ht=20, type="tuple")
-        self.dictionary_example = DataTypeExampleComponent(**self.type_params, textbox_ht=94, type="dictionary")
+        self.number_example = DataTypeExampleComponent(**self.type_params, textbox_ht=20, type="number", title="Integers and floats")
+        self.string_example = DataTypeExampleComponent(**self.type_params, textbox_ht=20, type="string", title="Strings")
+        self.list_example = DataTypeExampleComponent(**self.type_params, textbox_ht=20, type="list", title="Lists")
+        self.set_example = DataTypeExampleComponent(**self.type_params, textbox_ht=20, type="set", title="Sets")
+        self.tuple_example = DataTypeExampleComponent(**self.type_params, textbox_ht=20, type="tuple", title="Tuples")
+        self.dictionary_example = DataTypeExampleComponent(**self.type_params, textbox_ht=94, type="dictionary", title="Dictionaries")
         # endregion
 
         # Create slide frame
@@ -219,18 +234,19 @@ class DataTypesFrame(customtkinter.CTkFrame):
 
         # region: View 3 frame layout
         self.view_3_frame.place(relx=self.elem_x+2, rely=0.5, relheight=0.95, relwidth=0.9, anchor="center")
-        self.dictionary_section.grid(row=4, column=0, pady=(5, 10), sticky="we")
+        self.set_section.grid(row=0, column=0, pady=(5, 10), sticky="we")
+        self.dictionary_section.grid(row=1, column=0, pady=(5, 10), sticky="we")
         # endregion
 
         # region: View 4 frame layout
         self.view_4_frame.place(relx=self.elem_x+3, rely=0.5, relheight=0.95, relwidth=0.9, anchor="center")
         self.view_4_title.grid(row=0, column=0, pady=(0, 10), sticky="we")
-        self.integer_example.grid(row=1, column=0, pady=(5, 0), sticky="we")
-        self.float_example.grid(row=2, column=0, pady=(5, 0), sticky="we")
-        self.string_example.grid(row=3, column=0, pady=(5, 0), sticky="we")
-        self.list_example.grid(row=4, column=0, pady=(5, 0), sticky="we")
-        self.tuple_example.grid(row=5, column=0, pady=(5, 0), sticky="we")
-        self.dictionary_example.grid(row=6, column=0, pady=(5, 0), sticky="we")
+        self.number_example.grid(row=1, column=0, sticky="we")
+        self.string_example.grid(row=2, column=0, sticky="we")
+        self.list_example.grid(row=3, column=0, sticky="we")
+        self.tuple_example.grid(row=4, column=0, sticky="we")
+        self.set_example.grid(row=5, column=0, sticky="we")
+        self.dictionary_example.grid(row=6, column=0, sticky="we")
         # endregion
 
 
@@ -252,15 +268,14 @@ class SectionTypeComponent(customtkinter.CTkFrame):
         self.type_explanation.grid(row=1, column=0, pady=(5, 0), sticky="we")
 
 class DataTypeExampleComponent(customtkinter.CTkFrame):
-    def __init__(self, master, strings: dict, type: str, textbox_ht: int, **kwargs):
+    def __init__(self, master, strings: dict, type: str, title: str, textbox_ht: int, **kwargs):
         super().__init__(master, **kwargs)
 
         # self.grid_columnconfigure(0, weight=1)
         self.configure(fg_color="transparent")
 
-        self.text = "Dictionaries" if type.capitalize() == "Dictionary" else f'{type.capitalize()}s:'
         # Create type label
-        self.data_type = customtkinter.CTkLabel(master=self, text=self.text, font=("Arial", 18), anchor="w")
+        self.data_type = customtkinter.CTkLabel(master=self, text=title, font=("Arial", 18), anchor="w")
 
         # Explanation of type
         self.type_example = customtkinter.CTkTextbox(master=self, height=textbox_ht)
