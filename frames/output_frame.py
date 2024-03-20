@@ -80,11 +80,11 @@ class OutputFrame(customtkinter.CTkFrame):
 
         #region: Declare frames
         self.view_1_frame = customtkinter.CTkFrame(master=self, fg_color="transparent")
-        self.view_1_frame.grid_columnconfigure(0, weight=1)
         self.view_2_frame = customtkinter.CTkFrame(master=self, fg_color="transparent")
-        self.view_2_frame.grid_columnconfigure(0, weight=1)
         self.view_3_frame = customtkinter.CTkFrame(master=self, fg_color="transparent")
-        self.view_3_frame.grid_columnconfigure(0, weight=1)
+
+        self.views = [self.view_1_frame, self.view_2_frame, self.view_3_frame]
+        for view in self.views: view.grid_columnconfigure(0, weight=1)
         #endregion
 
         #region: View 1
@@ -250,7 +250,7 @@ class OutputFrame(customtkinter.CTkFrame):
         #endregion
 
         # Create slide frame
-        SlideFrame(master=self, fg_color="transparent", views=[self.view_1_frame, self.view_2_frame, self.view_3_frame])
+        SlideFrame(master=self, fg_color="transparent", views=self.views)
 
         # Create layout
         self.create_layout()

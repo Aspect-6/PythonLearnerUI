@@ -16,15 +16,16 @@ class ConvertingTypesFrame(customtkinter.CTkFrame):
 
         #region: Declare frames
         self.view_1_frame = customtkinter.CTkFrame(master=self, fg_color="transparent")
-        self.view_1_frame.grid_columnconfigure(0, weight=1)
-        #endregion
+        
+        self.views = [self.view_1_frame]
+        for view in self.views: view.grid_columnconfigure(0, weight=1)        #endregion
 
         #region: View 1
         # Create view 1 title
         self.view_1_title = customtkinter.CTkLabel(master=self.view_1_frame, text=self.strings.get("view_1_title"), **label_args)
         #endregion
 
-        self.slide_frame = SlideFrame(master=self, fg_color="transparent", views=[self.view_1_frame])
+        self.slide_frame = SlideFrame(master=self, fg_color="transparent", views=self.views)
 
         self.create_layout()
 

@@ -115,13 +115,12 @@ class DataTypesFrame(customtkinter.CTkFrame):
 
         # region: Declare views
         self.view_1_frame = customtkinter.CTkFrame(master=self, fg_color="transparent")
-        self.view_1_frame.grid_columnconfigure(0, weight=1)
         self.view_2_frame = customtkinter.CTkFrame(master=self, fg_color="transparent")
-        self.view_2_frame.grid_columnconfigure(0, weight=1)
         self.view_3_frame = customtkinter.CTkFrame(master=self, fg_color="transparent")
-        self.view_3_frame.grid_columnconfigure(0, weight=1)
         self.view_4_frame = customtkinter.CTkFrame(master=self, fg_color="transparent")
-        self.view_4_frame.grid_columnconfigure(0, weight=1)
+        
+        self.views = [self.view_1_frame, self.view_2_frame, self.view_3_frame, self.view_4_frame]
+        for view in self.views: view.grid_columnconfigure(0, weight=1)
         # endregion
 
         self.section_config = {
@@ -208,7 +207,7 @@ class DataTypesFrame(customtkinter.CTkFrame):
         # endregion
 
         # Create slide frame
-        self.slide_frame = SlideFrame(master=self, fg_color="transparent", views=[self.view_1_frame, self.view_2_frame, self.view_3_frame, self.view_4_frame])
+        self.slide_frame = SlideFrame(master=self, fg_color="transparent", views=self.views)
 
         self.create_layout()
 
