@@ -1,5 +1,5 @@
 import customtkinter
-from frames import OutputFrame, DataTypesFrame, StoringDataFrame, EmbeddedShell
+from frames import *
 
 # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_appearance_mode("System")
@@ -8,33 +8,42 @@ customtkinter.set_default_color_theme("blue")
 
 
 class MainTabview(customtkinter.CTkTabview):
-    def __init__(self, master, **kwargs):
+    def __init__(self, master, tabs: list[str], **kwargs):
         super().__init__(master, **kwargs)
 
         # Add tabs and configure grid layout for each tab
-        self.add("Output & Data Types").grid_rowconfigure(0, weight=1)
-        self.add("Variables").grid_rowconfigure(0, weight=1)
+        for tab in tabs:
+            self.add(tab)
+            self.tab(tab).grid_columnconfigure((0, 1), weight=1)
+            self.tab(tab).grid_rowconfigure((0), weight=1)
+
+        frame_args = {"width": 420, "fg_color": "#373737"}
 
         # Create output frame
-        self.output_frame = OutputFrame(master=self.tab("Output & Data Types"), width=420, fg_color="#373737")
-        self.output_frame.grid(row=0, column=0, padx=20, pady=20, sticky="nsw")
-        self.output_frame.grid_columnconfigure(2, weight=1)
+        self.output_frame = OutputFrame(master=self.tab(tabs[0]), **frame_args)
+        self.output_frame.grid_columnconfigure(0, weight=1)
+        self.output_frame.grid(row=0, column=0, padx=20, pady=20, sticky="nse")
 
-        # Create storing data frame
-        self.data_types_frame = DataTypesFrame(master=self.tab("Output & Data Types"), width=420, fg_color="#373737")
+        # Create data types frame
+        self.data_types_frame = DataTypesFrame(master=self.tab(tabs[0]), **frame_args)
+        self.data_types_frame.grid_columnconfigure(0, weight=1)
         self.data_types_frame.grid(row=0, column=1, padx=20, pady=20, sticky="nsw")
-        self.data_types_frame.grid_columnconfigure(2, weight=1)
         
         # Create storing data frame
-        self.storing_data_frame = StoringDataFrame(master=self.tab("Variables"), width=420, fg_color="#373737")
-        self.storing_data_frame.grid(row=0, column=1, padx=20, pady=20, sticky="nsw")
-        self.storing_data_frame.grid_columnconfigure(2, weight=1)
+        self.storing_data_frame = StoringDataFrame(master=self.tab(tabs[1]), **frame_args)
+        self.storing_data_frame.grid_columnconfigure(0, weight=1)
+        self.storing_data_frame.grid(row=0, column=0, padx=20, pady=20, sticky="nse")
 
-        self.set("Variables")
+        # Create converting types frame
+        self.converting_types_frame = ConvertingTypesFrame(master=self.tab(tabs[1]), **frame_args)
+        self.converting_types_frame.grid_columnconfigure(0, weight=1)
+        self.converting_types_frame.grid(row=0, column=1, padx=20, pady=20, sticky="nsw")
+
+        self.set(tabs[-1])
 
 
 class App(customtkinter.CTk):
-    def __init__(self):
+    def __init__(self, tabs: list[str]):
         super().__init__()
 
         # Ger user screen dimensions
@@ -76,7 +85,7 @@ class App(customtkinter.CTk):
         self.appearance_mode_optionemenu.grid(row=6, column=0, padx=20, pady=(10, 20))
         #endregion
 
-        self.main_tabview = MainTabview(master=self)
+        self.main_tabview = MainTabview(master=self, tabs=tabs)
         self.main_tabview.grid(row=0, rowspan=3, column=1, columnspan=3, padx=20, pady=20, sticky="nsew")
 
         # Create shell frame
@@ -122,6 +131,11 @@ class App(customtkinter.CTk):
         customtkinter.set_appearance_mode(new_appearance_mode)
 
 
-if __name__ == "__main__":
-    app = App()
+def main():
+    tabs = ["Output & Data Types", "Variables & Converting types"]
+    app = App(tabs)
     app.mainloop()
+
+
+if __name__ == "__main__":
+    main()
