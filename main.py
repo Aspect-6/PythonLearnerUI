@@ -1,5 +1,7 @@
 import customtkinter
 from frames import *
+from custom.debug_patterns import overlay, text
+from termcolor import colored
 
 # Modes: "System" (standard), "Dark", "Light"
 customtkinter.set_appearance_mode("System")
@@ -98,34 +100,75 @@ class App(customtkinter.CTk):
         self.pythonshell = EmbeddedShell(master=self.shell_frame, ispythonshell=True)
 
     def append_terminal(self):
+        LOG_TITLE = colored(text["Overlay"]["LOG_TITLE"], **overlay["log_title_pattern"])
+        SHELL_LABEL = colored(text["Overlay"]["SHELL"], **overlay["label_pattern"])
+        SHELL = text["Overlay"]["BASH_SHELL"]
+        BASH_SHELL_STATE_LABEL = colored(text["Overlay"]["BASH_SHELL_STATE"], **overlay["label_pattern"])
+        PYTHON_SHELL_STATE_LABEL = colored(text["Overlay"]["PYTHON_SHELL_STATE"], **overlay["label_pattern"])
+        BASH_SHELL_STATE = ""
+        PYTHON_SHELL_STATE = ""
+
         # If the shell frame is not in the grid
         if self.shell_frame.grid_info() == {}:
+            BASH_SHELL_STATE = colored("Appended", **overlay["appended_pattern"])
+            PYTHON_SHELL_STATE = colored("Not appended", **overlay["not_appended_pattern"])
+
             # Add the shell frame to the grid
             self.shell_frame.grid(row=0, rowspan=3, column=1, columnspan=3, padx=20, pady=20, sticky="nsew")
+            # Remove the python shell from the shell frame if it is in the grid
+            self.pythonshell.grid_forget() if self.pythonshell.grid_info() != {} else None
             # Add the embedded terminal to the shell frame
-            self.pythonshell.grid_forget()
             self.embedded_terminal.grid(row=0, column=0, padx=20, pady=20, sticky="nsew")
         elif self.pythonshell.grid_info() != {}:
+            BASH_SHELL_STATE = colored("Appended", **overlay["appended_pattern"])
+            PYTHON_SHELL_STATE = colored("Not appended", **overlay["not_appended_pattern"])
+
+            LOG_TITLE = colored(text["Overlay"]["LOG_TITLE"], **overlay["log_title_pattern"])
+            SHELL_LABEL = colored(text["Overlay"]["SHELL"], **overlay["label_pattern"])
+            
             # If the python shell is in the shell frame, remove it, and add the embedded terminal
-            self.embedded_terminal.grid(row=0, column=0, padx=20, pady=20, sticky="nsew")
             self.pythonshell.grid_forget()
+            self.embedded_terminal.grid(row=0, column=0, padx=20, pady=20, sticky="nsew")
         else:
             self.shell_frame.grid_forget()
+            BASH_SHELL_STATE = colored("Not appended", **overlay["not_appended_pattern"])
+            PYTHON_SHELL_STATE = colored("Not appended", **overlay["not_appended_pattern"])
+        
+        print(f"{LOG_TITLE}  |  {SHELL_LABEL}: {SHELL}, {BASH_SHELL_STATE_LABEL}: {BASH_SHELL_STATE}, {PYTHON_SHELL_STATE_LABEL}: {PYTHON_SHELL_STATE}")
 
     def append_pythonshell(self):
+        LOG_TITLE = colored(text["Overlay"]["LOG_TITLE"], **overlay["log_title_pattern"])
+        SHELL_LABEL = colored(text["Overlay"]["SHELL"], **overlay["label_pattern"])
+        SHELL = text["Overlay"]["PYTHON_SHELL"]
+        BASH_SHELL_STATE_LABEL = colored(text["Overlay"]["BASH_SHELL_STATE"], **overlay["label_pattern"])
+        PYTHON_SHELL_STATE_LABEL = colored(text["Overlay"]["PYTHON_SHELL_STATE"], **overlay["label_pattern"])
+        BASH_SHELL_STATE = ""
+        PYTHON_SHELL_STATE = ""
+
         # If the shell frame is not in the grid
         if self.shell_frame.grid_info() == {}:
+            BASH_SHELL_STATE = colored("Not appended", **overlay["not_appended_pattern"])
+            PYTHON_SHELL_STATE = colored("Appended", **overlay["appended_pattern"])
+
             # Add the shell frame to the grid
             self.shell_frame.grid(row=0, rowspan=3, column=1, columnspan=3, padx=20, pady=20, sticky="nsew")
+            # Remove the python shell from the shell frame if it is in the grid
+            self.embedded_terminal.grid_forget() if self.embedded_terminal.grid_info() != {} else None
             # Add the embedded terminal to the shell frame
-            self.embedded_terminal.grid_forget()
             self.pythonshell.grid(row=0, column=0, padx=20, pady=20, sticky="nsew")
         elif self.embedded_terminal.grid_info() != {}:
-            # If the embedded terminal is in the shell frame, remove it, and add the python shell
-            self.pythonshell.grid(row=0, column=0, padx=20, pady=20, sticky="nsew")
+            BASH_SHELL_STATE = colored("Not appended", **overlay["not_appended_pattern"])
+            PYTHON_SHELL_STATE = colored("Appended", **overlay["appended_pattern"])
+
+            # If the python shell is in the shell frame, remove it, and add the embedded terminal
             self.embedded_terminal.grid_forget()
+            self.pythonshell.grid(row=0, column=0, padx=20, pady=20, sticky="nsew")
         else:
             self.shell_frame.grid_forget()
+            BASH_SHELL_STATE = colored("Not appended", **overlay["not_appended_pattern"])
+            PYTHON_SHELL_STATE = colored("Not appended", **overlay["not_appended_pattern"])
+        
+        print(f"{LOG_TITLE}  |  {SHELL_LABEL}: {SHELL}, {BASH_SHELL_STATE_LABEL}: {BASH_SHELL_STATE}, {PYTHON_SHELL_STATE_LABEL}: {PYTHON_SHELL_STATE}")
 
     def change_appearance_mode_event(self, new_appearance_mode: str):
         customtkinter.set_appearance_mode(new_appearance_mode)
