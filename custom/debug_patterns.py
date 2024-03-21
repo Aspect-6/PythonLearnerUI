@@ -1,13 +1,31 @@
-log_title_pattern = {
-    "color": "black",
-    "on_color": "on_yellow",
-    "attrs": ["bold"]
+question = {
+    "label_pattern": {
+        "color": "black",
+        "on_color": "on_magenta",
+        "attrs": ["bold", "underline"]
+    },
+    "filename_pattern": {
+        "color": "grey",
+        "on_color": None,
+        "attrs": ["underline"]
+    },
+    "correct_answers_pattern": {
+        "color": "green",
+        "on_color": None,
+        "attrs": ["bold"]
+    },
+    "user_input_pattern": {
+        "color": "blue",
+        "on_color": None,
+        "attrs": ["bold"]
+    },
+    "question_status_pattern": {
+        "on_color": None,
+        "attrs": ["bold", "underline"]
+
+    },
 }
-label_pattern = {
-    "color": "black",
-    "on_color": "on_magenta",
-    "attrs": ["bold", "underline"]
-}
+
 text = {
     "Question": {
         "LOG_TITLE": "Quiz Question",
@@ -15,24 +33,5 @@ text = {
         "CORRECT_ANSWERS_LABEL": "Correct Answers(s)",
         "USER_INPUT_LABEL": "User Input",
         "QUESTION_STATUS_LABEL": "Question Status"
-    }
-}
-filename_pattern = {
-    "color": "grey",
-    "on_color": None,
-    "attrs": ["underline"]
-}
-correct_answers_pattern = {
-    "color": "green",
-    "on_color": None,
-    "attrs": ["bold"]
-}
-user_input_pattern = {
-    "color": "blue",
-    "on_color": None,
-    "attrs": ["bold"]
-}
-question_status_pattern = {
-    "on_color": None,
-    "attrs": ["bold", "underline"]
+    },
 }
