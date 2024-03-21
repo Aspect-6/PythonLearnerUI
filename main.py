@@ -4,7 +4,7 @@ from custom.debug_patterns import overlay, text
 from termcolor import colored
 
 # Modes: "System" (standard), "Dark", "Light"
-customtkinter.set_appearance_mode("System")
+customtkinter.set_appearance_mode("Dark")
 # Themes: "blue" (standard), "green", "dark-blue"
 customtkinter.set_default_color_theme("blue")
 
